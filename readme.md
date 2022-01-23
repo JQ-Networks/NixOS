@@ -1,10 +1,14 @@
-# Future JQ-Networks Flake Repo
-This folder aims to be the future JQ-Networks open source flake repo.
+# JQ-Networks Flake Repo
 
-Part of it will become a public repo and part of it will remain private.
+Services that are used by JQ-Networks that are not "included by"/"the default one from" nixpkgs.
+
+Some services might be useful to everyone, such as pppoe service. 
 
 ## services and supplemental
 
-`supplemental` folder contains generic nix modules that fit everyone's need.
+`supplemental` folder contains generic nix modules that are standalone and does some very fundamental abstractions.
+Each folder under supplemental can be copied to other flake and use without too much modifications.
 
 `services` folder contains customized nix modules that fit my infra. Some of the modules are abstractions based on `supplemental`.
+They have cross references and should not be used alone.
+
