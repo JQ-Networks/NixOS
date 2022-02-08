@@ -66,12 +66,12 @@ in
       mtg = {
         group = "mtg";
         isSystemUser = true;
-        uid = config.ids.uids.mtg;
+        uid = 12306;
       };
     };
 
     users.groups = {
-      mtg.gid = config.ids.gids.mtg;
+      mtg.gid = 12306;
     };
 
     jq-networks.supplemental.firewall = {
