@@ -3,10 +3,10 @@
 let
   inherit (lib) mkIf mkOption mkEnableOption;
   inherit (builtins) toString;
-  cfg = config.services.mtg;
+  cfg = config.jq-networks.services.mtg;
 in
 {
-  options.services.mtg = with lib; {
+  options.jq-networks.services.mtg = with lib; {
     enable = mkEnableOption "mtg, alternative MTProto Proxy";
 
     package = mkOption {
