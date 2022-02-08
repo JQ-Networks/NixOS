@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:JQ-Networks/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     indexyz.url = "github:X01A/nixos";
     mach-nix.url = "github:DavHau/mach-nix?ref=3.3.0";

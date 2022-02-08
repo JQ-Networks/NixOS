@@ -127,6 +127,14 @@ in
           action = "TCPMSS";
           args = "clamp-mss-to-pmtu";
         }
+        {
+          # t-+ is wildcard for wireguard
+          interface = filter (x: x != "") [ "t-+" cfg.wanInterface ];
+          proto = "tcp";
+          extraFilters = "tcp-flags (SYN RST) SYN";
+          action = "TCPMSS";
+          args = "clamp-mss-to-pmtu";
+        }
       ];
     };
     ip6.filter.chains.forward = { prepends = commonForwardPrepend; };
