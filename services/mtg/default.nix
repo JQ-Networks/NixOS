@@ -18,15 +18,6 @@ in
       '';
     };
 
-    localPort = mkOption {
-      type = types.int;
-      default = 9999;
-      example = 8888;
-      description = ''
-        Local port to get usage stats from. Only works via loopback.
-      '';
-    };
-
     httpPort = mkOption {
       type = types.int;
       default = 3128;
@@ -51,9 +42,8 @@ in
       description = "mtg MTProto proxy server for Telegram.";
 
       script = ''
-        ${cfg.package}/bin/mtg run \
-        -b 0.0.0.0:${toString cfg.httpPort} \
-        -t 127.0.0.1:${toString cfg.localPort} \
+        ${cfg.package}/bin/mtg simple-run \
+        0.0.0.0:${toString cfg.httpPort} \
         "$(cat ${cfg.secretFile})"
       '';
 
