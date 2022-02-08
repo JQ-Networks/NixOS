@@ -16,6 +16,11 @@
         # (final: prev: (indexyz.overlay.${final.system} final prev))
         (final: prev: { mach-nix = import mach-nix { pkgs = import nixpkgs {}; pypiDataRev = "fc8e41f3c2e219e644e3784b68bda8dd31a29178"; pypiDataSha256 = "0s8as6zm7kci1y78cw5f69la0njk9am3yj2y8g710nvcg60pr3bd"; }; })
         indexyz.overlay."x86_64-linux"
+        (
+          final: prev: {
+            mtg = self.packages."x86_64-linux".mtg;
+          }
+        )
       ];
       packages."x86_64-linux" = 
       let 
