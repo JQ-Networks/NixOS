@@ -62,6 +62,18 @@ in
       };
     };
 
+    users.users = {
+      mtg = {
+        group = "mtg";
+        isSystemUser = true;
+        uid = config.ids.uids.mtg;
+      };
+    };
+
+    users.groups = {
+      mtg.gid = config.ids.gids.mtg;
+    };
+
     jq-networks.supplemental.firewall = {
       filterInputRules = [
         {
