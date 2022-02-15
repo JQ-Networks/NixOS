@@ -10,7 +10,7 @@ let
       interface lo ACCEPT;
     ''
   ];
-  commonForwardPrepend = [
+  commonForwardAppend = [
     # Can't kill invalid since we might only be hearing half of the conversation
     ''
       mod state state (ESTABLISHED RELATED) ACCEPT;
@@ -104,12 +104,12 @@ in
     # INPUT
     ip.filter.chains.input = {
       policy = "DROP";
-      prepends = commonInputPrepend;
+      appends = commonInputPrepend;
       rules = inputRulesFor "ipv4";
     };
     ip6.filter.chains.input = {
       policy = "DROP";
-      prepends = commonInputPrepend;
+      appends = commonInputPrepend;
       rules = inputRulesFor "ipv6";
     };
 
@@ -117,7 +117,7 @@ in
     # This is much more complicated so let's leave it to
     # the host configs
     ip.filter.chains.forward = {
-      prepends = commonForwardPrepend;
+      appends = commonForwardAppend;
       rules = [
         {
           # t-+ is wildcard for wireguard
@@ -137,7 +137,7 @@ in
         }
       ];
     };
-    ip6.filter.chains.forward = { prepends = commonForwardPrepend; };
+    ip6.filter.chains.forward = { appends = commonForwardAppend; };
     # ipv4 MASQUERADE
     ip.nat.chains.postrouting.rules = mkIf (cfg.wanInterface != "") [
       {
