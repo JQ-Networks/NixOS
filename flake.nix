@@ -10,7 +10,7 @@
       overlays = [
         (
           final: prev: {
-            unstable = (import unstable { system = final.system; });
+            unstable = (import unstable { system = final.system; allowUnfree = true;});
           }
         )
         # (final: prev: (indexyz.overlay.${final.system} final prev))
@@ -25,7 +25,7 @@
       ];
       packages."x86_64-linux" = 
       let 
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        pkgs = import nixpkgs { system = "x86_64-linux"; allowUnfree = true; };
       in
         import ./pkgs { nixpkgs = pkgs; };
       nixosModules = {
