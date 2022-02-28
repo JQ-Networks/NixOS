@@ -2,16 +2,17 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs";
     indexyz.url = "github:X01A/nixos";
     mach-nix.url = "github:DavHau/mach-nix?ref=3.4.0";
   };
-  outputs = inputs@{ self, nixpkgs, unstable, indexyz, mach-nix, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, nixpkgs-master, indexyz, mach-nix, ... }:
     {
       overlays = [
         (
           final: prev: {
             unstable = (import unstable { system = final.system; config.allowUnfree = true;});
-            raspberrypi-wireless-firmware = (import unstable { system = final.system; config.allowUnfree = true;}).raspberrypi-wireless-firmware;
+            master = (import nixpkgs-master { system = final.system; config.allowUnfree = true;});
           }
         )
         # (final: prev: (indexyz.overlay.${final.system} final prev))
