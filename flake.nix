@@ -11,6 +11,7 @@
         (
           final: prev: {
             unstable = (import unstable { system = final.system; config.allowUnfree = true;});
+            raspberrypi-wireless-firmware = (import unstable { system = final.system; config.allowUnfree = true;}).raspberrypi-wireless-firmware;
           }
         )
         # (final: prev: (indexyz.overlay.${final.system} final prev))
