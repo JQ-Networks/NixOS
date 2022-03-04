@@ -18,7 +18,7 @@
         # (final: prev: (indexyz.overlay.${final.system} final prev))
         # https://github.com/DavHau/pypi-deps-db
 
-        (final: prev: { mach-nix = import mach-nix { pkgs = import nixpkgs {}; pypiDataRev = "42a6f18b7abafe97d73cc8045d6357915c5ecf77"; pypiDataSha256 = "sha256-uKf8bMR6prNIuvXtoNyKH7gfd1pBAeHQ6l0i0SSh9IA="; }; })
+        (final: prev: { mach-nix = mach-nix.lib.${final.system}; })
         indexyz.overlay."x86_64-linux"
         (
           final: prev: {
