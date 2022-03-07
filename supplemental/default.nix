@@ -6,5 +6,6 @@
     ./bird2
     ./paas
     ./rename-interfaces
+    ./vouch
   ];
 }
