@@ -1,7 +1,7 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 with lib;
 {
-  lib.jq-networks = {
+  lib = {
     recursiveMerge = attrList:
       let
         f = attrPath:
@@ -17,5 +17,25 @@ with lib;
           );
       in
         f [] attrList;
+
+    fromYAML = yaml: builtins.fromJSON (
+      builtins.readFile (
+        pkgs.runCommand "from-yaml"
+          {
+            inherit yaml;
+            allowSubstitutes = false;
+            preferLocalBuild = true;
+          }
+          ''
+            ${pkgs.remarshal}/bin/remarshal  \
+              -if yaml \
+              -i <(echo "$yaml") \
+              -of json \
+              -o $out
+          ''
+      )
+    );
+
+    readYAML = path: fromYAML (builtins.readFile path);
   };
 }
