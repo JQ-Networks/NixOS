@@ -11,8 +11,8 @@
       overlays = [
         (
           final: prev: {
-            unstable = (import unstable { system = final.system; config.allowUnfree = true;});
-            master = (import nixpkgs-master { system = final.system; config.allowUnfree = true;});
+            unstable = (import unstable { system = final.system; config.allowUnfree = true; });
+            master = (import nixpkgs-master { system = final.system; config.allowUnfree = true; });
           }
         )
         # (final: prev: (indexyz.overlay.${final.system} final prev))
@@ -27,11 +27,11 @@
           }
         )
       ];
-      packages."x86_64-linux" = 
-      let 
-        pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
-      in
-        import ./pkgs { nixpkgs = pkgs; };
+      packages."x86_64-linux" =
+        let
+          pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
+        in
+          import ./pkgs { nixpkgs = pkgs; };
       nixosModules = {
         jq-networks = { ... }: {
           imports =
@@ -47,6 +47,7 @@
                 enableUnstable
               ];
         };
+        lib = { lib, pkgs, ... }: (import ./utils { inherit lib pkgs; });
       };
     };
 }
