@@ -58,12 +58,19 @@ let
         default = null;
       };
       symlinkCodeBase = mkEnableOption "Make a full symbolic copy of code base to working dir.";
-      restart = mkOption {
-        type = types.str;
+      extraSystemdServiceConfigs = mkOption {
+        type = types.attrs;
         description = ''
-          Systemd restart option. 
-          Choices are no, on-success, on-failure, on-abnormal, on-watchdog, on-abort, or always'';
-        default = "on-failure";
+          Systemd options.
+        ''; 
+        default = {};
+      };
+      extraSystemdTimerConfigs = mkOption {
+        type = types.nullOr types.attrs;
+        description = ''
+          Systemd timer options.
+        ''; 
+        default = null;
       };
     };
   };
@@ -92,7 +99,7 @@ in
       systemd.services = let
         genSystemdService = key: value: (
           nameValuePair
-            "paas-${key}" {
+            "paas-${key}" (mkMerge [{
             description = "Python service for ${key}";
             after = [ "network.target" ];
             wantedBy = [ "default.target" ];
@@ -113,12 +120,29 @@ in
             '';
             serviceConfig = {
               Environment = "PYTHONPATH=${value.codePath}";
-              Restart = value.restart;
             };
           }
+          value.extraSystemdServiceConfigs
+          ])
         );
       in
         mapAttrs' genSystemdService cfg;
+
+      systemd.timers = let
+        genSystemdTimer = key: value: (
+          nameValuePair
+            "paas-${key}" (mkMerge [{
+            description = "Timer service for ${key}";
+            wantedBy = [ "timers.target" ];
+            timerConfig = {
+              Unit = "paas-${key}.service";
+            };
+          }
+          value.extraSystemdTimerConfigs
+          ])
+        );
+      in
+        mapAttrs' genSystemdTimer (filterAttrs (key: value: value.extraSystemdTimerConfigs != null) cfg);
       environment.systemPackages = attrValues pythonVenvs;
     };
 }
