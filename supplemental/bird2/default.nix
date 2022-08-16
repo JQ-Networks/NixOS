@@ -162,6 +162,7 @@ in {
         ExecReload = "${cfg.birdPackage}/bin/birdc configure";
         ExecStop = "${cfg.birdPackage}/bin/birdc down";
         Restart = "always";
+        RuntimeDirectory = "bird";
       };
     };
 
