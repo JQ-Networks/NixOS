@@ -60,6 +60,7 @@ let
               Address = "169.254.${myId}.${peerId}/32";
               Peer = "169.254.${peerId}.${myId}/32";
               Scope = "link";
+              DuplicateAddressDetection = "none";
             };
           }
           {
