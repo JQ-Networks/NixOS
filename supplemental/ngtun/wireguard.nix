@@ -92,6 +92,6 @@ in {
       optional (versionOlder config.boot.kernelPackages.kernel.version "5.6")
       config.boot.kernelPackages.wireguard;
     boot.kernelModules = [ "wireguard" ];
-    environment.systemPackages = with pkgs; [ wireguard ];
+    environment.systemPackages = with pkgs; [ wireguard-tools ];
   };
 }

@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-uuJqEq+WPoBmJIWjclodZAc0yZG22GbuYk0uuNhNWkI=";
   };
 
-  vendorSha256 = "sha256-996Ittio+XXdIvomNe1j3E0Gp3ZE5CNnGYLKuFa6/To=";
+  vendorSha256 = "sha256-ZqOdHH68srblAl+xMsrWVTPJst6flXAPH4OcBn2bbqg=";
   doCheck = false;
   meta = with lib; {
     description = "Highly-opionated (ex-bullshit-free) MTPROTO proxy for Telegram.";
