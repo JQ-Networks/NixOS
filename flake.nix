@@ -24,6 +24,7 @@
           final: prev: {
             mtg = self.packages."x86_64-linux".mtg;
             xray = self.packages."x86_64-linux".xray;
+            sing-box = self.packages."x86_64-linux".sing-box;
           }
         )
       ];
