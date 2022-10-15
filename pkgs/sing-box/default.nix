@@ -1,21 +1,24 @@
 { fetchFromGitHub, buildGoModule, lib }:
 buildGoModule rec {
   pname = "sing-box";
-  version = "1.0.5";
-  rev = "v${version}";
+  # version = "1.0.5";
+  # rev = "v${version}";
+  # this is dev-vnext branch
+  version = "9ea5bbd032fd76c6931266a2ae7d60d2378a0ae4";
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box";
-    rev = "v${version}";
-    sha256 = "sha256-S1a78qXnAE+CoKN8yKjPJdHXmojGXce7oGrexIH8Y8c=";
+    # rev = "v${version}";
+    rev = version;
+    sha256 = "sha256-QsBSgVHFLIhxT2ZG6VjA2eYpzn6zX2qdkIzF4LrLP/M=";
   };
 
-  vendorSha256 = "sha256-nHtYTCd59rMIcstFjw62dxVH6CJl91yx9EBz2FrwSoo=";
+  vendorSha256 = "sha256-mLB//fVP0bKkyvAyYBEUayZkdL/o1szs+5HunJUU8rY=";
   doCheck = false;
 
   buildPhase = ''
-    buildFlagsArray=(-v -trimpath -tags "with_quic,with_wireguard,with_clash_api,with_gvisor" -p $NIX_BUILD_CORES -ldflags="-s -w")
+    buildFlagsArray=(-v -trimpath -tags "with_quic,with_wireguard,with_clash_api,with_v2ray_api,with_gvisor" -p $NIX_BUILD_CORES -ldflags="-s -w")
     runHook preBuild
     go build "''${buildFlagsArray[@]}" -o sing-box ./cmd/sing-box
     runHook postBuild
