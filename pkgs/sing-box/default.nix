@@ -1,20 +1,20 @@
 { fetchFromGitHub, buildGoModule, lib }:
 buildGoModule rec {
   pname = "sing-box";
-  version = "1.0.6";
-  rev = "v${version}";
+  # version = "1.0.6";
+  # rev = "v${version}";
   # this is dev-vnext branch
-  # version = "9ea5bbd032fd76c6931266a2ae7d60d2378a0ae4";
+  version = "d0e883ece6d9a99084f8dabde06ffc464b6db7e0";
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box";
-    rev = "v${version}";
-    # rev = version;
-    sha256 = "sha256-rt/hk3tYiBbLeUklpblD9w+4KSGHZTDAhaXSV5R3wFE=";
+    # rev = "v${version}";
+    rev = version;
+    sha256 = "sha256-7NUQFBYcvVUSDd5MLErkFKHRk/3s5OpBDKrLkJyT98k=";
   };
 
-  vendorSha256 = "sha256-nHtYTCd59rMIcstFjw62dxVH6CJl91yx9EBz2FrwSoo=";
+  vendorSha256 = "sha256-PAbVS/v8o4bdN81tsLm06gVQnLNbC+G/DrWwx6eYCFQ=";
   doCheck = false;
 
   buildPhase = ''
