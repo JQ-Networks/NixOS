@@ -33,7 +33,7 @@ in
       after = [ "network.target" ];
 
       script = ''
-        ${pkgs.vouch}/bin/vouch-proxy -config ${resultJSON} -port ${toString cfg.port}
+        ${pkgs.vouch-proxy}/bin/vouch-proxy -config ${resultJSON} -port ${toString cfg.port}
       '';
     };
   };

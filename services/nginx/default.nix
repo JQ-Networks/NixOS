@@ -9,10 +9,6 @@ in
 {
   options.jq-networks.services.nginx = {
     enable = mkEnableOption "nginx service";
-    httpsPort = mkOption {
-      type = types.int;
-      default = 443;
-    };
   };
 
   config = mkIf cfg.enable {
