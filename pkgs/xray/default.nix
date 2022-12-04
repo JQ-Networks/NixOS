@@ -1,17 +1,16 @@
 { fetchFromGitHub, buildGoModule, lib }:
 buildGoModule rec {
   pname = "xray";
-  version = "1.5.3";
+  version = "1.6.1";
   rev = "v${version}";
 
   src = fetchFromGitHub {
     owner = "XTLS";
     repo = "Xray-core";
     rev = "v${version}";
-    sha256 = "sha256-lpBsQ1gvQk4NLSslDYqNicRogmD794Hud3UBvUwbExQ=";
+    sha256 = "sha256-K5S8xgV1U7NmsGPvLb2kxLW4RvQYjvUyuBFSIYqvSzw=";
   };
-
-  vendorSha256 = "sha256-h0VCscAUuvfwPRgCNWH3RodneuCeKFztUGky3hJFp+4=";
+  vendorSha256 = "sha256-QAF/05/5toP31a/l7mTIetFhXuAKsT69OI1K/gMXei0=";
   doCheck = false;
 
   buildPhase = ''
