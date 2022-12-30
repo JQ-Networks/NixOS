@@ -12,3 +12,8 @@ git.fetchSubmodules = true
 src.github = "XTLS/Xray-core"
 fetch.github = "XTLS/Xray-core"
 git.fetchSubmodules = true
+
+[clash-meta]
+src.github = "MetaCubeX/Clash.Meta"
+fetch.github = "MetaCubeX/Clash.Meta"
+git.fetchSubmodules = true

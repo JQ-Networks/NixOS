@@ -1,4 +1,24 @@
 {
+    "clash-meta": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "clash-meta",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "MetaCubeX",
+            "repo": "Clash.Meta",
+            "rev": "v1.13.2",
+            "sha256": "sha256-je2kl+Zbz+wRoIOqYTtW3DwUeS2d+gZ5MdQBnqLBHKg=",
+            "type": "github"
+        },
+        "version": "v1.13.2"
+    },
     "mtg": {
         "cargoLocks": null,
         "date": null,
