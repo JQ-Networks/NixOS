@@ -35,10 +35,10 @@
             # https://github.com/DavHau/pypi-deps-db
 
             (final: prev: { mach-nix = mach-nix.lib.${final.system}; })
-            indexyz.overlay."x86_64-linux"
+            indexyz.overlay.${system}
             (final: prev: packages)
           ];
-          packages.${system} = packages;
+          inherit packages;
         }
       ) // {
       nixosModules = {
