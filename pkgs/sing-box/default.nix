@@ -1,20 +1,8 @@
-{ fetchFromGitHub, buildGoModule, lib }:
+{ fetchFromGitHub, buildGoModule, lib, source }:
 buildGoModule rec {
-  pname = "sing-box";
-  # version = "1.0.6";
-  # rev = "v${version}";
-  # this is dev-vnext branch
-  version = "d0e883ece6d9a99084f8dabde06ffc464b6db7e0";
+  inherit (source) src pname version;
 
-  src = fetchFromGitHub {
-    owner = "SagerNet";
-    repo = "sing-box";
-    # rev = "v${version}";
-    rev = version;
-    sha256 = "sha256-7NUQFBYcvVUSDd5MLErkFKHRk/3s5OpBDKrLkJyT98k=";
-  };
-
-  vendorSha256 = "sha256-PAbVS/v8o4bdN81tsLm06gVQnLNbC+G/DrWwx6eYCFQ=";
+  vendorSha256 = "sha256-fUHfvqzbu2P7N413dDuV41myhReNSYvgF+Cc6SgG6y4=";
   doCheck = false;
 
   buildPhase = ''
@@ -30,7 +18,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "The universal proxy platform.";
-    homepage = "https://sing-box.sagernet.org/";
+    homepage = "https://github.com/SagerNet/sing-box";
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

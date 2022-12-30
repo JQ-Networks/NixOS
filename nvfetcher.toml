@@ -1,0 +1,14 @@
+[mtg]
+src.github = "9seconds/mtg"
+fetch.github = "9seconds/mtg"
+git.fetchSubmodules = true
+
+[sing-box]
+src.github = "SagerNet/sing-box"
+fetch.github = "SagerNet/sing-box"
+git.fetchSubmodules = true
+
+[xray]
+src.github = "XTLS/Xray-core"
+fetch.github = "XTLS/Xray-core"
+git.fetchSubmodules = true
