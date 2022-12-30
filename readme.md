@@ -12,3 +12,10 @@ Each folder under supplemental can be copied to other flake and use without too 
 `services` folder contains customized nix modules that fit my infra. Some of the modules are abstractions based on `supplemental`.
 They have cross references and should not be used alone.
 
+## Update package
+
+```bash
+nix run github:berberman/nvfetcher
+```
+
+Then fix all vendorSha256 in each package manually.

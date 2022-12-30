@@ -1,38 +1,46 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs";
-    indexyz.url = "github:X01A/nixos";
-    mach-nix.url = "github:DavHau/mach-nix?ref=3.4.0";
+    indexyz = {
+      url = "github:X01A/nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    mach-nix = {
+      url = "github:DavHau/mach-nix?ref=3.5.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs@{ self, nixpkgs, unstable, nixpkgs-master, indexyz, mach-nix, ... }:
-    {
-      overlays = [
-        (
-          final: prev: {
-            unstable = (import unstable { system = final.system; config.allowUnfree = true; });
-            master = (import nixpkgs-master { system = final.system; config.allowUnfree = true; });
-          }
-        )
-        # (final: prev: (indexyz.overlay.${final.system} final prev))
-        # https://github.com/DavHau/pypi-deps-db
-
-        (final: prev: { mach-nix = mach-nix.lib.${final.system}; })
-        indexyz.overlay."x86_64-linux"
-        (
-          final: prev: {
-            mtg = self.packages."x86_64-linux".mtg;
-            xray = self.packages."x86_64-linux".xray;
-            sing-box = self.packages."x86_64-linux".sing-box;
-          }
-        )
-      ];
-      packages."x86_64-linux" =
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, indexyz, mach-nix, flake-utils, ... }:
+    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ]
+      (system:
         let
-          pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
+          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+          packages = import ./pkgs { nixpkgs = pkgs; };
         in
-          import ./pkgs { nixpkgs = pkgs; };
+        {
+          overlays = [
+            (
+              final: prev: {
+                unstable = (import nixpkgs-unstable { system = final.system; config.allowUnfree = true; });
+                master = (import nixpkgs-master { system = final.system; config.allowUnfree = true; });
+              }
+            )
+            # (final: prev: (indexyz.overlay.${final.system} final prev))
+            # https://github.com/DavHau/pypi-deps-db
+
+            (final: prev: { mach-nix = mach-nix.lib.${final.system}; })
+            indexyz.overlay."x86_64-linux"
+            (final: prev: packages)
+          ];
+          packages.${system} = packages;
+        }
+      ) // {
       nixosModules = {
         jq-networks = { ... }: {
           imports =
@@ -43,10 +51,10 @@
                 }
               );
             in
-              [
-                ./default.nix
-                enableUnstable
-              ];
+            [
+              ./default.nix
+              enableUnstable
+            ];
         };
         lib = { lib, pkgs, ... }: (import ./utils { inherit lib pkgs; });
       };
