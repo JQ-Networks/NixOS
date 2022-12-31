@@ -71,12 +71,13 @@ in rec {
   '';
 
   genTable = key: options: let 
+    family = options.family;
     tableName = if !isNull options.name then options.name else key;
     sets = mapAttrsToList genSet options.sets;
     maps = mapAttrsToList genMap options.maps;
     chains = mapAttrsToList genChain options.chains;
   in ''
-  table ${options.family} ${tableName} {
+  table ${family} ${tableName} {
     ${concatStringsSep "\n" sets}
     ${concatStringsSep "\n" maps}
 
