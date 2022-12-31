@@ -44,16 +44,15 @@
       nixosModules = {
         jq-networks = { system, ... }: {
           imports =
-            let
-              enableUnstable = (
-                { ... }: {
-                  nixpkgs.overlays = self.overlays.${system};
-                }
-              );
-            in
+            # let
+            #   enablePackages = (
+            #     { ... }: {
+            #       nixpkgs.overlays = self.overlays.${system};
+            #     }
+            #   );
+            # in
             [
               ./default.nix
-              enableUnstable
             ];
         };
         lib = { lib, pkgs, ... }: (import ./utils { inherit lib pkgs; });
