@@ -42,12 +42,12 @@
         }
       ) // {
       nixosModules = {
-        jq-networks = { ... }: {
+        jq-networks = { system, ... }: {
           imports =
             let
               enableUnstable = (
                 { ... }: {
-                  nixpkgs.overlays = self.overlays;
+                  nixpkgs.overlays = self.overlays.${system};
                 }
               );
             in
