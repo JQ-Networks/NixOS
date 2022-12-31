@@ -6,8 +6,8 @@ with lib;
 with builtins;
 let
   cfg = config.jq-networks.supplemental.nftables;
-  tableType = (import ./types.nix).tableType;
-  renderConfig = (import ./render.nix).genConf;
+  tableType = (import ./types.nix {inherit lib;}).tableType;
+  renderConfig = (import ./render.nix {inherit lib;}).genConf;
   ruleSetFile = toFile "nftables.rule" (renderConfig cfg.config);
 in
 {
