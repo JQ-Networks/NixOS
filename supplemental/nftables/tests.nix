@@ -2,7 +2,6 @@ with builtins;
 let
   lib = (import <nixpkgs> { }).lib;
   config = {
-    tables = {
       filter = {
         family = "inet";
         name = null;
@@ -64,7 +63,6 @@ let
 
         };
       };
-    };
   };
   render = (import ./render.nix { inherit lib; }).genConf;
 in

@@ -30,7 +30,7 @@ rec {
     options = {
       family = mkOption {
         description = "family type";
-        type = oneOf familyType;
+        type = enum familyType;
       };
       name = mkStr "table name";
       sets = mkOption {
@@ -91,12 +91,12 @@ rec {
       name = mkStr "chain name";
       type = mkOption {
         description = "chain type";
-        type = nullOr (oneOf ["filter" "nat" "route"]);
+        type = nullOr (enum ["filter" "nat" "route"]);
         default = null;
       };
       hook = mkOption {
         description = "hooks";
-        type = oneOf ["prerouting" "input" "forward" "output" "postrouting" "ingress" "egress"];
+        type = enum ["prerouting" "input" "forward" "output" "postrouting" "ingress" "egress"];
         default = null;
       };
       policy = mkStr "default policy";
