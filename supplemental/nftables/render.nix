@@ -21,7 +21,7 @@ in rec {
     rules = filterAttrs (key: value: key != "action" && key != "comment") r;
     argumentExp = concatStringsSep " " (mapAttrsToList renderComposite rules);
     action = if hasAttr "action" r then " ${r.action}" else "";
-    comment = if hasAttr "comment" r then '' comment "${r.comment}"'' else "";
+    comment = if hasAttr "comment" r then " comment \"${r.comment}\"" else "";
   in "${argumentExp}${action}${comment}";
 
   genChain = key: options: let
@@ -45,7 +45,7 @@ in rec {
     setType = if !isNull options.typeOf then "typeof ${options.typeOf}" else "type ${options.type}";
     setFlags = if !isNull options.flags then "flags ${options.flags}" else "";
     setElements = renderComposite "" options.elements;
-    comment = if ! isNull options.comment then ''comment "${options.comment}"'' else "";
+    comment = if ! isNull options.comment then "comment \"${options.comment}\"" else "";
   in ''
   set ${setName} {
     ${setType}
@@ -60,7 +60,7 @@ in rec {
     mapName = if ! isNull options.name then options.name else key;
     mapType = if !isNull options.typeOf then "typeof ${options.typeOf}" else "type ${options.type}";
     mapElements = renderComposite "" options.elements;
-    comment = if ! isNull options.comment then ''comment "${options.comment}"'' else "";
+    comment = if ! isNull options.comment then "comment \"${options.comment}\"" else "";
   in ''
     map ${mapName} {
       ${mapType}
