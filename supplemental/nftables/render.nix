@@ -86,7 +86,7 @@ in rec {
 
 
   genConf = cfg: let
-    tables = mapAttrsToList genTable cfg.tables;
+    tables = mapAttrsToList genTable cfg;
   in ''
     ${concatStringsSep "\n" tables}
   '';
