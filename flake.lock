@@ -136,21 +136,18 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "pypi-deps-db": [
-          "pypi-deps-db"
-        ]
+        "pypi-deps-db": "pypi-deps-db"
       },
       "locked": {
-        "lastModified": 1654084003,
-        "narHash": "sha256-j/XrVVistvM+Ua+0tNFvO5z83isL+LBgmBi9XppxuKA=",
+        "lastModified": 1674628768,
+        "narHash": "sha256-mia90VYv/YTdWNhKpvwvFW9RfbXZJSWhJ+yva6EnLE8=",
         "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "7e14360bde07dcae32e5e24f366c83272f52923f",
+        "rev": "70daee1b200c9a24a0f742f605edadacdcb5c998",
         "type": "github"
       },
       "original": {
         "owner": "DavHau",
-        "ref": "3.5.0",
         "repo": "mach-nix",
         "type": "github"
       }
@@ -173,11 +170,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1675232909,
-        "narHash": "sha256-v/5iAvyhdLpdHPN57CCOZJg3GOwzwX/J2RhENqJINdI=",
+        "lastModified": 1675233677,
+        "narHash": "sha256-FdCaXSaqZUbi9JBeWo6eJWXnFZHe0Dv+YeP14ZFMWYk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "49565e1199ee055c8a523650ec288ea968547fac",
+        "rev": "5aa722294056e50934e58ab6ed8629de0effba7a",
         "type": "github"
       },
       "original": {
@@ -221,16 +218,16 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1675228066,
-        "narHash": "sha256-5cIVSKTDy6xaGRt2NYsr2FAO7jmLligJWcE9FJ5xN+E=",
+        "lastModified": 1661155889,
+        "narHash": "sha256-t00mBTZhmZBT4jteO6pJbU0wyRS6/ep4pKmQNeztEms=",
         "owner": "DavHau",
-        "repo": "nix-pypi-fetcher-2",
-        "rev": "88aca062a6cc27abe594c68a518b6ebbafc08cc4",
+        "repo": "pypi-deps-db",
+        "rev": "49c620f3de2b557c9d5c44f58a00fee59f27d1b0",
         "type": "github"
       },
       "original": {
         "owner": "DavHau",
-        "repo": "nix-pypi-fetcher-2",
+        "repo": "pypi-deps-db",
         "type": "github"
       }
     },
@@ -241,8 +238,7 @@
         "mach-nix": "mach-nix",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
-        "nixpkgs-unstable": "nixpkgs-unstable",
-        "pypi-deps-db": "pypi-deps-db"
+        "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },
     "rust-overlay": {
