@@ -12,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mach-nix = {
-      url = "github:DavHau/mach-nix";
+      url = "github:JQ-Networks/mach-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.pypi-deps-db.follows = "pypi-deps-db";
     };
