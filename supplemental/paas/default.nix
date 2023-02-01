@@ -89,6 +89,7 @@ in
           pkgs.mach-nix.mkPython {
             requirements = value.requirements;
             python = value.pythonVersion;
+            ignoreDataOutdated = true;
           }
         )
       );
