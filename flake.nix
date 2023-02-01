@@ -10,7 +10,6 @@
     pypi-deps-db = {
       url = "github:DavHau/pypi-deps-db";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.mach-nix.follows = "mach-nix";
       follows = "nixpkgs";
     };
     mach-nix = {
