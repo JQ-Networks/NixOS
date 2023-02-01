@@ -7,14 +7,14 @@
       url = "github:X01A/nixos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pypi-deps-db = {
-      url = "github:DavHau/pypi-deps-db";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # pypi-deps-db = {
+    #   url = "github:DavHau/pypi-deps-db";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     mach-nix = {
       url = "github:DavHau/mach-nix/3.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pypi-deps-db.follows = "pypi-deps-db";
+      # inputs.pypi-deps-db.follows = "pypi-deps-db";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
