@@ -92,11 +92,11 @@
     },
     "flake-utils_4": {
       "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "lastModified": 1642700792,
+        "narHash": "sha256-XqHrk7hFb+zBvRg6Ghl+AZDq03ov6OshJLiSWOoX5es=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "rev": "846b2ae0fc4cc943637d3d1def4454213e203cba",
         "type": "github"
       },
       "original": {
@@ -156,15 +156,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1675235953,
-        "narHash": "sha256-sMRdUeS9n0iJn2WZSH1FCJLuGJ2nBF5IWPOcFSx/4W0=",
-        "owner": "JQ-Networks",
+        "lastModified": 1654084003,
+        "narHash": "sha256-j/XrVVistvM+Ua+0tNFvO5z83isL+LBgmBi9XppxuKA=",
+        "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "f9a867b68487b75a31a018d2f848a4351ffad729",
+        "rev": "7e14360bde07dcae32e5e24f366c83272f52923f",
         "type": "github"
       },
       "original": {
-        "owner": "JQ-Networks",
+        "owner": "DavHau",
+        "ref": "3.5.0",
         "repo": "mach-nix",
         "type": "github"
       }
@@ -206,11 +207,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1675234560,
-        "narHash": "sha256-H2MSgt5SEUHy1/x11C1dy7hGu6vr0e1HBLhadwueKjk=",
+        "lastModified": 1675237356,
+        "narHash": "sha256-dIw/Ux6U/5q9cxjBMcXvuuDk1F8OrAGBnHpYUivd/P0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4fa16343fc8f27dfafcc93e594407c5b1c247e7d",
+        "rev": "4ee247bc9290b5c168562de07af480bbdc3cc0b8",
         "type": "github"
       },
       "original": {
