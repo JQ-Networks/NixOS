@@ -82,20 +82,26 @@ in
                     my-app = value.codePath;
                   };
                   overrides = pkgs.poetry2nix.defaultPoetryOverrides.extend
-                    (self: super: {
-                      magic-filter = super.magic-filter.overridePythonAttrs
-                        (
-                          old: {
-                            buildInputs = (old.buildInputs or [ ]) ++ [ super.poetry ];
-                          }
+                    (self: super:
+                      let
+                        overridePackages = {
+                          "magic-filter" = [ "setuptools" ];
+                          "bs4" = [ "poetry" ];
+                          "aiogram" = [ "setuptools" ];
+                        };
+                        genList = map (x: super.${x});
+                        genMissing = overridePackages: mapAttrs (
+                          key: value: (
+                            super.${key}.overridePythonAttrs (
+                              old: {
+                                buildInputs = (old.buildInputs or [ ]) ++ (genList value);
+                              }
+                            )
+                          )
                         );
-                      bs4 = super.bs4.overridePythonAttrs
-                        (
-                          old: {
-                            buildInputs = (old.buildInputs or [ ]) ++ [ super.setuptools ];
-                          }
-                        );
-                    });
+                      in
+                      genMissing overridePackages
+                    );
                 }).env
               )
           );
