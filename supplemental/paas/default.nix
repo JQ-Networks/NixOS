@@ -81,6 +81,15 @@ in
                   editablePackageSources = {
                     my-app = value.codePath;
                   };
+                  overrides = poetry2nix.defaultPoetryOverrides.extend
+                    (self: super: {
+                      magic-filter = super.magic-filter.overridePythonAttrs
+                        (
+                          old: {
+                            buildInputs = (old.buildInputs or [ ]) ++ [ super.poetry ];
+                          }
+                        );
+                    });
                 }).env
               )
           );
