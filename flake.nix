@@ -17,7 +17,8 @@
       (system:
         let
           pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
-          packages = import ./pkgs { nixpkgs = pkgs; };
+          pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+          packages = import ./pkgs { nixpkgs = pkgs; nixpkgs-unstable = pkgs-unstable; };
         in
         {
           overlays = [
