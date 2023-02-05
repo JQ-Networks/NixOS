@@ -29,6 +29,7 @@ let
           "bs4" = [ "setuptools" ];
           "aiogram" = [ "setuptools" ];
         };
+        default = {};
       };
       extraSystemdServiceConfigs = mkOption {
         type = types.attrs;
