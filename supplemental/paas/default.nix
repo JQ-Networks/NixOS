@@ -37,27 +37,13 @@ let
         type = types.str;
         description = "the entry point of script";
       };
-      requirements = mkOption {
-        type = types.str;
-        description = ''
-          content of requirements.txt
-          use builtins.readFile to load from existing requirements.txt
-        '';
-        default = "";
-      };
       pythonVersion = mkOption {
-        type = types.str;
+        type = types.package;
         description = ''
           Python Package
           https://github.com/NixOS/nixpkgs/blob/nixos-21.05/pkgs/development/interpreters/python/default.nix'';
-        default = "python38";
+        default = pkgs.python38;
       };
-      workingDir = mkOption {
-        type = types.nullOr pathType;
-        description = "permanent storage path";
-        default = null;
-      };
-      symlinkCodeBase = mkEnableOption "Make a full symbolic copy of code base to working dir.";
       extraSystemdServiceConfigs = mkOption {
         type = types.attrs;
         description = ''
@@ -86,11 +72,13 @@ in
       genPythonVenv = key: value: (
         nameValuePair
           "paas-${key}" (
-          pkgs.mach-nix.mkPython {
-            requirements = value.requirements;
-            python = value.pythonVersion;
-            ignoreDataOutdated = true;
-          }
+          pkgs.poetry2nix.mkPoetryEnv {
+              projectDir = value.codePath;
+              python = value.pythonVersion;
+              editablePackageSources = {
+                  my-app = value.codePath;
+              };
+          }.env
         )
       );
     in
@@ -106,22 +94,8 @@ in
             wantedBy = [ "default.target" ];
             path = [ (getAttr "paas-${key}" pythonVenvs) ];
             script = ''
-              ${optionalString (value.workingDir != null)
-              (with value.workingDir;
-              ''mkdir -p -m${mode} ${path}
-                chown -R ${user}:${group} ${path}
-                cd ${path}'')}
-              ${optionalString (value.workingDir == null)
-              ''cd ${value.codePath}''}
-              ${optionalString value.symlinkCodeBase
-              (with value.workingDir;
-              ''find ${path} -type l -delete
-                ln -s ${value.codePath}/* ${path}'')}
               ${value.shellScript}
             '';
-            serviceConfig = {
-              Environment = "PYTHONPATH=${value.codePath}";
-            };
           }
           value.extraSystemdServiceConfigs
           ])
