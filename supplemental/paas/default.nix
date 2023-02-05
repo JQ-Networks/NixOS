@@ -84,7 +84,7 @@ in
                   overrides = pkgs.poetry2nix.defaultPoetryOverrides.extend
                     (self: super:
                       let
-                        overridePackages = {
+                        overridePackages = traceSeq {
                           "magic-filter" = [ "setuptools" ];
                           "bs4" = [ "poetry" ];
                           "aiogram" = [ "setuptools" ];
@@ -100,7 +100,7 @@ in
                           )
                         );
                       in
-                      traceSeq (genMissing (traceSeq overridePackages))
+                      genMissing overridePackages
                     );
                 }).env
               )
