@@ -7,15 +7,6 @@
       url = "github:X01A/nixos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # pypi-deps-db = {
-    #   url = "github:DavHau/pypi-deps-db";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-    mach-nix = {
-      url = "github:DavHau/mach-nix/3.5.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.pypi-deps-db.follows = "pypi-deps-db";
-    };
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,8 +29,6 @@
             )
             # (final: prev: (indexyz.overlay.${final.system} final prev))
             # https://github.com/DavHau/pypi-deps-db
-
-            (final: prev: { mach-nix = mach-nix.lib.${final.system}; })
             indexyz.overlay.${system}
             (final: prev: packages)
           ];
@@ -49,13 +38,6 @@
       nixosModules = {
         jq-networks = { system, ... }: {
           imports =
-            # let
-            #   enablePackages = (
-            #     { ... }: {
-            #       nixpkgs.overlays = self.overlays.${system};
-            #     }
-            #   );
-            # in
             [
               ./default.nix
             ];

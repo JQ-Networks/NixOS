@@ -19,6 +19,21 @@
         },
         "version": "v1.14.1"
     },
+    "clash-premium": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "clash-premium",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-LCN9HNBZZ1oAIeLxm/NnMdnD5Hrw1STgisXOUdSYPaY=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.01.29.gz"
+        },
+        "version": "2023.01.29"
+    },
     "mtg": {
         "cargoLocks": null,
         "date": null,

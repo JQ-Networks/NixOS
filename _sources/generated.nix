@@ -12,6 +12,14 @@
       sha256 = "sha256-xlrhDCvRWvDz6TsHj04x0ojTfL+gkhHLLy9VnJkETqI=";
     });
   };
+  clash-premium = {
+    pname = "clash-premium";
+    version = "2023.01.29";
+    src = fetchurl {
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.01.29.gz";
+      sha256 = "sha256-LCN9HNBZZ1oAIeLxm/NnMdnD5Hrw1STgisXOUdSYPaY=";
+    };
+  };
   mtg = {
     pname = "mtg";
     version = "v2.1.7";
