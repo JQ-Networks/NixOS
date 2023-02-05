@@ -84,7 +84,7 @@ in
                   overrides = pkgs.poetry2nix.defaultPoetryOverrides.extend
                     (self: super:
                       let
-                        overridePackages = traceSeq {
+                        overridePackages = {
                           "magic-filter" = [ "setuptools" ];
                           "bs4" = [ "poetry" ];
                           "aiogram" = [ "setuptools" ];
