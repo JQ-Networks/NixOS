@@ -85,6 +85,7 @@ in
                           "magic-filter" = [ "poetry" ];
                           "bs4" = [ "setuptools" ];
                           "aiogram" = [ "setuptools" ];
+                          "opt" = [ "setuptools" ];
                         };
                         genList = map (x: super.${x});
                         genMissing = mapAttrs (
