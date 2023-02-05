@@ -22,7 +22,7 @@ let
         default = pkgs.python310;
       };
       overridePackages = mkOption {
-        type = types.attrsOf types.str;
+        type = types.attrsOf (types.listOf types.str);
         description = "add missing packages to dependencies";
         example = {
           "magic-filter" = [ "poetry" ];
