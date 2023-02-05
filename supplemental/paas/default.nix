@@ -42,7 +42,7 @@ let
         description = ''
           Python Package
           https://github.com/NixOS/nixpkgs/blob/nixos-21.05/pkgs/development/interpreters/python/default.nix'';
-        default = pkgs.python38;
+        default = pkgs.python310;
       };
       extraSystemdServiceConfigs = mkOption {
         type = types.attrs;
