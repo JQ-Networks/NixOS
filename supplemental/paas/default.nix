@@ -85,8 +85,8 @@ in
                     (self: super:
                       let
                         overridePackages = {
-                          "magic-filter" = [ "setuptools" ];
-                          "bs4" = [ "poetry" ];
+                          "magic-filter" = [ "poetry" ];
+                          "bs4" = [ "setuptools" ];
                           "aiogram" = [ "setuptools" ];
                         };
                         genList = map (x: super.${x});
