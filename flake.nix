@@ -36,7 +36,7 @@
             # https://github.com/DavHau/pypi-deps-db
             indexyz.overlay.${system}
             (final: prev: packages)
-            poetry2nix.overlay.${system}
+            poetry2nix.overlay
           ];
           inherit packages;
         }
