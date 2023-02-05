@@ -65,7 +65,7 @@ in
                 (pkgs.unstable.poetry2nix.mkPoetryApplication {
                   projectDir = value.codePath;
                   python = value.pythonVersion;
-                  overrides = pkgs.poetry2nix.defaultPoetryOverrides.extend
+                  overrides = pkgs.unstable.poetry2nix.defaultPoetryOverrides.extend
                     (self: super:
                       let
                         overridePackages = {
