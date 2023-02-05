@@ -11,8 +11,12 @@
       url = "github:numtide/flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, indexyz, mach-nix, flake-utils, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, indexyz, mach-nix, flake-utils, poetry2nix, ... }:
     flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ]
       (system:
         let
@@ -32,6 +36,7 @@
             # https://github.com/DavHau/pypi-deps-db
             indexyz.overlay.${system}
             (final: prev: packages)
+            poetry2nix.overlay.${system}
           ];
           inherit packages;
         }
