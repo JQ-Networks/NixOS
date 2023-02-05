@@ -4,29 +4,6 @@ with builtins;
 with lib;
 let
   cfg = config.jq-networks.supplemental.paas;
-  pathType = types.submodule {
-    options = {
-      path = mkOption {
-        type = types.str;
-        description = "permanent storage directory, must be absolute";
-      };
-      mode = mkOption {
-        type = types.str;
-        description = "folder mode";
-        default = "0755";
-      };
-      user = mkOption {
-        type = types.str;
-        description = "owner user";
-        default = "root";
-      };
-      group = mkOption {
-        type = types.str;
-        description = "owner group";
-        default = "root";
-      };
-    };
-  };
   paasType = types.submodule {
     options = {
       codePath = mkOption {
@@ -43,6 +20,15 @@ let
           Python Package
           https://github.com/NixOS/nixpkgs/blob/nixos-21.05/pkgs/development/interpreters/python/default.nix'';
         default = pkgs.python310;
+      };
+      overridePackages = mkOption {
+        type = types.attrsOf types.str;
+        description = "add missing packages to dependencies";
+        example = {
+          "magic-filter" = [ "poetry" ];
+          "bs4" = [ "setuptools" ];
+          "aiogram" = [ "setuptools" ];
+        };
       };
       extraSystemdServiceConfigs = mkOption {
         type = types.attrs;
@@ -85,8 +71,7 @@ in
                           "magic-filter" = [ "poetry" ];
                           "bs4" = [ "setuptools" ];
                           "aiogram" = [ "setuptools" ];
-                          "opt" = [ "setuptools" ];
-                        };
+                        } // value.overridePackages;
                         genList = map (x: super.${x});
                         genMissing = mapAttrs (
                           key: value: (
