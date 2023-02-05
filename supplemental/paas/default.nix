@@ -82,7 +82,7 @@ in
                     (self: super:
                       let
                         overridePackages = {
-                          "magic-filter" = [ "poetry-core" "setuptools" ];
+                          "magic-filter" = [ "setuptools" ];
                           "bs4" = [ "setuptools" ];
                           "aiogram" = [ "setuptools" ];
                         };
