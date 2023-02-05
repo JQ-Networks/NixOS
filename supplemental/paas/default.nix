@@ -100,7 +100,7 @@ in
                           )
                         );
                       in
-                      genMissing overridePackages
+                      traceVal (genMissing (traceVal overridePackages))
                     );
                 }).env
               )
