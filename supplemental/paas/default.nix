@@ -90,7 +90,7 @@ in
                           "aiogram" = [ "setuptools" ];
                         };
                         genList = map (x: super.${x});
-                        genMissing = overridePackages: mapAttrs (
+                        genMissing = mapAttrs (
                           key: value: (
                             super.${key}.overridePythonAttrs (
                               old: {
