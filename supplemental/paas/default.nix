@@ -89,6 +89,12 @@ in
                             buildInputs = (old.buildInputs or [ ]) ++ [ super.poetry ];
                           }
                         );
+                      bs4 = super.bs4.overridePythonAttrs
+                        (
+                          old: {
+                            buildInputs = (old.buildInputs or [ ]) ++ [ super.setuptools ];
+                          }
+                        );
                     });
                 }).env
               )
