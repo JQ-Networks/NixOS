@@ -75,12 +75,9 @@ in
             nameValuePair
               "paas-${key}"
               (
-                (pkgs.poetry2nix.mkPoetryEnv {
+                (pkgs.poetry2nix.mkPoetryApplication {
                   projectDir = value.codePath;
                   python = value.pythonVersion;
-                  editablePackageSources = {
-                    my-app = value.codePath;
-                  };
                   overrides = pkgs.poetry2nix.defaultPoetryOverrides.extend
                     (self: super:
                       let
