@@ -100,7 +100,7 @@ in
                           )
                         );
                       in
-                      traceVal (genMissing (traceVal overridePackages))
+                      traceSeq (genMissing (traceSeq overridePackages))
                     );
                 }).env
               )
