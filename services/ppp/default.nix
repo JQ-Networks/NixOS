@@ -145,8 +145,16 @@ in
         };
         dhcpV6Config = {
           # PrefixDelegationHint = "::/60";
-          ForceDHCPv6PDOtherInformation = true;
-          WithoutRA = "information-request";
+          # ForceDHCPv6PDOtherInformation = true;  # for older systemd
+          WithoutRA = "solicit";
+          UseDelegatedPrefix = true;
+          UseAddress = false;
+          UseDNS = false;
+        };
+        dhcpPrefixDelegationConfig = {
+          UplinkInterface = ":self";
+          SubnetId = 0;
+          Announce = false;
         };
       }
     ) cfg.config;

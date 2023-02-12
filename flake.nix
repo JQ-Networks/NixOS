@@ -9,7 +9,6 @@
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     poetry2nix = {
       url = "github:nix-community/poetry2nix";
