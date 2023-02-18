@@ -1,7 +1,6 @@
 {
     "clash-meta": {
         "cargoLocks": null,
-        "date": null,
         "extract": null,
         "name": "clash-meta",
         "passthru": null,
@@ -13,30 +12,28 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "Clash.Meta",
-            "rev": "v1.14.1",
-            "sha256": "sha256-xlrhDCvRWvDz6TsHj04x0ojTfL+gkhHLLy9VnJkETqI=",
+            "rev": "v1.14.2",
+            "sha256": "sha256-sn+0TNXCK4af4zfkf09hLsFkuvkcyjhwh35kKo993FQ=",
             "type": "github"
         },
-        "version": "v1.14.1"
+        "version": "v1.14.2"
     },
     "clash-premium": {
         "cargoLocks": null,
-        "date": null,
         "extract": null,
         "name": "clash-premium",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LCN9HNBZZ1oAIeLxm/NnMdnD5Hrw1STgisXOUdSYPaY=",
+            "sha256": "sha256-dqGV4zRMlV9sTUqRawigLWu6toMRdeBn+McaUPZjAZ4=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.01.29.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.02.16.gz"
         },
-        "version": "2023.01.29"
+        "version": "2023.02.16"
     },
     "mtg": {
         "cargoLocks": null,
-        "date": null,
         "extract": null,
         "name": "mtg",
         "passthru": null,
@@ -56,7 +53,6 @@
     },
     "sing-box": {
         "cargoLocks": null,
-        "date": null,
         "extract": null,
         "name": "sing-box",
         "passthru": null,
@@ -76,7 +72,6 @@
     },
     "xray": {
         "cargoLocks": null,
-        "date": null,
         "extract": null,
         "name": "xray",
         "passthru": null,
@@ -88,10 +83,10 @@
             "name": null,
             "owner": "XTLS",
             "repo": "Xray-core",
-            "rev": "v1.7.3",
-            "sha256": "sha256-zMo+gvNDOO8S8Xl+ejTuIkn/NsktQeSyTYDjVNrL6Wo=",
+            "rev": "v1.7.5",
+            "sha256": "sha256-WCku/7eczcsGiIuTy0sSQKUKXlH14TpdVg2/ZPdaiHQ=",
             "type": "github"
         },
-        "version": "v1.7.3"
+        "version": "v1.7.5"
     }
 }
