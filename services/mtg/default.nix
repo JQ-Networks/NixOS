@@ -64,6 +64,9 @@ in
       mtg.gid = 12306;
     };
 
+    # firewall2
+    jq-networks.services.firewall2.tcpOpenPorts = [cfg.httpPort];
+
     jq-networks.supplemental.firewall = {
       filterInputRules = [
         {

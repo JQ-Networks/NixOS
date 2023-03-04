@@ -17,13 +17,13 @@ in rec {
   renderComposite = name: arg: if isNull arg then "" else "${name} ${argument arg}";
 
   # Trim rules with empty args. Rules with empty args are considered invalid rules.
-  isTrue = x: !(isNull x || x == "" || x == [] || x == {} || x == false);
-  filterRules = filter (r: any isTrue (attrValues r));
+  isFalse = x: (isNull x || x == "" || x == [] || x == {} || x == false);
+  filterRules = filter (r: !(any isFalse (attrValues r)));
 
   # Render a rule
   genRule = r: let
     rules = filterAttrs (key: value: key != "action" && key != "comment" && key != "counter") r;
-    argumentExp = concatStringsSep " " (mapAttrsToList renderComposite (filterRules rules));
+    argumentExp = concatStringsSep " " (mapAttrsToList renderComposite rules);
     counter = if hasAttr "counter" r then " counter" else "";
     action = if hasAttr "action" r then " ${r.action}" else "";
     comment = if hasAttr "comment" r then " comment \"${r.comment}\"" else "";
@@ -37,7 +37,7 @@ in rec {
     prependExp = concatStringsSep " " (remove "" [type hook priority]);
     renderedPrependExp = if prependExp == "" then "" else "${prependExp};";
     policy = if !isNull options.policy then "policy ${options.policy};" else "";
-    rules = map genRule options.rules;
+    rules = map genRule (filterRules options.rules);
   in ''
   chain ${chainName} {
     ${renderedPrependExp}${policy}

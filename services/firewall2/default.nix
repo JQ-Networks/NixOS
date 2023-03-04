@@ -1,8 +1,9 @@
 { config, pkgs, lib, ... }:
+with lib;
 let
-  compositeType = with lib.types; nullOr (either
-    (either str ints.unsigned)
-    (listOf (either str ints.unsigned)));
+  compositeType = with types; nullOr (either
+    (oneOf [ str ints.unsigned bool ])
+    (listOf (oneOf [ str ints.unsigned bool ])));
 
   mkComposite = description: mkOption {
     inherit description;
@@ -32,17 +33,8 @@ in
       description = "Add nat to outbound traffic.";
     };
 
-    tcpOpenPorts = mkOption {
-      type = types.listOf types.ports;
-      default = [ ];
-      description = "TCP Ports to open on INPUT";
-    };
-
-    udpOpenPorts = mkOption {
-      type = types.listOf types.ports;
-      default = [ ];
-      description = "UDP Ports to open on INPUT";
-    };
+    tcpOpenPorts = mkComposite "TCP Ports to open on INPUT";
+    udpOpenPorts = mkComposite "UDP Ports to open on INPUT";
 
     portForwards = mkOption {
       type = types.listOf portForwardType;
@@ -59,7 +51,18 @@ in
     };
 
   };
-  config.jq-networks.supplemental.nftables = {
+  config.systemd.services.reload-podman-firewall = mkIf (config.virtualisation.podman.enable && cfg.enable) {
+    description = "nftables firewall";
+    after = [ "nftables.service" ];
+    bindsTo = [ "nftables.service" ]; # Only starts if nftables exits with success
+    wantedBy = [ "nftables.service" ]; # Creates a Wants dependency in service1
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.podman}/bin/podman network reload --all";
+    };
+  };
+  config.jq-networks.supplemental.nftables = mkIf cfg.enable {
     enable = true;
     config = {
       filter = {
@@ -73,7 +76,7 @@ in
           allow_udp = {
             type = "inet_service";
             flags = "interval";
-            elements = udpOpenPorts;
+            elements = cfg.udpOpenPorts;
           };
         };
 

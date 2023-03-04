@@ -6,8 +6,8 @@ let
   familyType = [ "ip" "ip6" "inet" "arp" "bridge" "netdev"];
 
   compositeType = nullOr (either
-      (either str ints.unsigned)
-      (listOf (either str ints.unsigned)));
+      (oneOf [str ints.unsigned bool])
+      (listOf (oneOf [str ints.unsigned bool])));
 
   mkComposite = description: mkOption {
     inherit description;

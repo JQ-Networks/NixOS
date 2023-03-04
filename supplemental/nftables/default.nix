@@ -1,5 +1,10 @@
 # nftables DSL
 # based on https://wiki.archlinux.org/title/nftables
+# Special features:
+# 1. If any field is empty (null, "", [], false) within ruleType, the rule entry is truncated.
+# 2. use counter = true; for counter argument.
+# 3. use comment = "asdasd"; for comments.
+# 4. use action = "accept"; for actions like "accept".
 
 { config, pkgs, lib, ... }:
 with lib;

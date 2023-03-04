@@ -44,6 +44,20 @@ in {
       serviceConfig = { Restart = "always"; };
     };
 
+    # firewall2
+    jq-networks.supplemental.nftables.config.filter.chains.input.rules = [
+      {
+        "tcp dport" = "20000-40000";
+        action = "accept";
+      }
+      {
+        "udp dport" = "20000-40000";
+        action = "accept";
+      }
+    ];
+    jq-networks.services.firewall2.tcpOpenPorts = [cfg.bindPort];
+    jq-networks.services.firewall2.udpOpenPorts = [cfg.bindPort];
+
     jq-networks.supplemental = {
       firewall = {
         enable = true;

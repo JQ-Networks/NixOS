@@ -14,6 +14,9 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    # firewall2
+    jq-networks.services.firewall2.tcpOpenPorts = [cfgRsync.port];
+
     jq-networks.supplemental.firewall = {
       enable = true;
       filterInputRules = [{

@@ -77,6 +77,19 @@ in {
       in "${webUI}/src";
     };
     jq-networks.services.nginx.enable = true;
+
+    # firewall2
+    jq-networks.supplemental.nftables.config.filter.chains.input.rules = [
+      {
+        "udp dport" = with cfg_transmission; ["${toString peer-port-random-low}-${toString peer-port-random-high}" "${toString peerPort}"];
+        action = "accept";
+      }
+      {
+        "tcp dport" = with cfg_transmission; ["${toString peer-port-random-low}-${toString peer-port-random-high}" "${toString peerPort}"];
+        action = "accept";
+      }
+    ];
+
     jq-networks.supplemental = {
 
       firewall = {
