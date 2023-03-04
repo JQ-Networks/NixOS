@@ -4,6 +4,7 @@
     ./code-server
     ./ddclient
     ./firewall
+    ./firewall2
     ./frps
     ./frpc
     ./l2tp

@@ -16,13 +16,18 @@ in rec {
   # Render a composite along with an argument
   renderComposite = name: arg: if isNull arg then "" else "${name} ${argument arg}";
 
+  # Trim rules with empty args. Rules with empty args are considered invalid rules.
+  isTrue = x: !(isNull x || x == "" || x == [] || x == {} || x == false);
+  filterRules = filter (r: any isTrue (attrValues r));
+
   # Render a rule
   genRule = r: let
-    rules = filterAttrs (key: value: key != "action" && key != "comment") r;
-    argumentExp = concatStringsSep " " (mapAttrsToList renderComposite rules);
+    rules = filterAttrs (key: value: key != "action" && key != "comment" && key != "counter") r;
+    argumentExp = concatStringsSep " " (mapAttrsToList renderComposite (filterRules rules));
+    counter = if hasAttr "counter" r then " counter" else "";
     action = if hasAttr "action" r then " ${r.action}" else "";
     comment = if hasAttr "comment" r then " comment \"${r.comment}\"" else "";
-  in "${argumentExp}${action}${comment}";
+  in "${argumentExp}${counter}${action}${comment}";
 
   genChain = key: options: let
     chainName = if ! isNull options.name then options.name else key;
