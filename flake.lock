@@ -47,11 +47,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1676283394,
-        "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
         "type": "github"
       },
       "original": {
@@ -107,11 +107,11 @@
     },
     "flake-utils_5": {
       "locked": {
-        "lastModified": 1676283394,
-        "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
         "type": "github"
       },
       "original": {
@@ -132,11 +132,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1677899322,
-        "narHash": "sha256-R7CC40TyUpGq11k7PPsn0HOprDfT3f9aJgy+v9M0YiA=",
+        "lastModified": 1678982957,
+        "narHash": "sha256-nvGBe1fgG887XnxK+UFn1Z6Dbv0Zx4kXVV9xWa1+TcM=",
         "owner": "X01A",
         "repo": "nixos",
-        "rev": "60038e206981e864f9e3bef0011e31d399f1861b",
+        "rev": "4e6540f9bc1ca484e40232500d0ef42e16c59cb2",
         "type": "github"
       },
       "original": {
@@ -152,11 +152,11 @@
         "pypi-deps-db": "pypi-deps-db"
       },
       "locked": {
-        "lastModified": 1674628768,
-        "narHash": "sha256-mia90VYv/YTdWNhKpvwvFW9RfbXZJSWhJ+yva6EnLE8=",
+        "lastModified": 1678343959,
+        "narHash": "sha256-LGFLMTf9gEPYzLuny3idKQOGiZFVhmjR2VGvio4chMI=",
         "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "70daee1b200c9a24a0f742f605edadacdcb5c998",
+        "rev": "f60b9833469adb18e57b4c9e8fc4804fce82e3da",
         "type": "github"
       },
       "original": {
@@ -181,11 +181,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1677676435,
-        "narHash": "sha256-6FxdcmQr5JeZqsQvfinIMr0XcTyTuR7EXX0H3ANShpQ=",
+        "lastModified": 1678898370,
+        "narHash": "sha256-xTICr1j+uat5hk9FyuPOFGxpWHdJRibwZC+ATi0RbtE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a08d6979dd7c82c4cef0dcc6ac45ab16051c1169",
+        "rev": "ac718d02867a84b42522a0ece52d841188208f2c",
         "type": "github"
       },
       "original": {
@@ -197,11 +197,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1677779205,
-        "narHash": "sha256-6DBjL9wjq86p2GczmwnHtFRnWPBPItc67gapWENBgX8=",
+        "lastModified": 1678972866,
+        "narHash": "sha256-YV8BcNWfNVgS449B6hFYFUg4kwVIQMNehZP+FNDs1LY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "96e18717904dfedcd884541e5a92bf9ff632cf39",
+        "rev": "cd34d6ed7ba7d5c4e44b04a53dc97edb52f2766c",
         "type": "github"
       },
       "original": {
@@ -235,11 +235,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1677613856,
-        "narHash": "sha256-sto7m/eN0GrWysJmCw6Uho4QImycXeH5R/PZe1dysXc=",
+        "lastModified": 1678851068,
+        "narHash": "sha256-xiBA1KshEXeu9OzGIoqYFf/OfGp17YvQPRXks6jMkts=",
         "owner": "nix-community",
         "repo": "poetry2nix",
-        "rev": "45babaf3f04aa1d53fa90e7ab9404360f7621919",
+        "rev": "9ce22528035da8f36ea579559b32a37d38668425",
         "type": "github"
       },
       "original": {
@@ -251,11 +251,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1661155889,
-        "narHash": "sha256-t00mBTZhmZBT4jteO6pJbU0wyRS6/ep4pKmQNeztEms=",
+        "lastModified": 1678051695,
+        "narHash": "sha256-kFFP8TN8pEKARtjK9loGdH+TU23ZbHdVLCUdNcufKPs=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "49c620f3de2b557c9d5c44f58a00fee59f27d1b0",
+        "rev": "e00b22ead9d3534ba1c448e1af3076af6b234acf",
         "type": "github"
       },
       "original": {
