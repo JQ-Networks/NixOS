@@ -2,7 +2,7 @@
 buildGoModule rec {
   inherit (source) src pname version;
 
-  vendorSha256 = "sha256-WYMCsFX5/4H+Bc0KcxcPMjfz2wEXz3V4D0sww15AgvE=";
+  vendorSha256 = "sha256-IZGMyoCqcpX1Ocag0sZY7b70lAOq58SxD3q+qPJyp9g=";
   doCheck = false;
 
   buildPhase = ''
