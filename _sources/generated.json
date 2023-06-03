@@ -12,11 +12,11 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "Clash.Meta",
-            "rev": "v1.14.3",
-            "sha256": "sha256-FGmUzv9Ae2dn6vqlAXcpM5xs1K8P4tGn5tchl7N2rqg=",
+            "rev": "v1.14.4",
+            "sha256": "sha256-FTHY89durGNeoRrXTA24ZVZ6QRc/LwZPW44PqUiq6AE=",
             "type": "github"
         },
-        "version": "v1.14.3"
+        "version": "v1.14.4"
     },
     "clash-premium": {
         "cargoLocks": null,
@@ -26,11 +26,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=",
+            "sha256": "sha256-pY0s0xuzoxdzWxHoOgztqf/MezIhvVBGBVYtJovHENU=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.29.gz"
         },
-        "version": "2023.04.16"
+        "version": "2023.05.29"
     },
     "mtg": {
         "cargoLocks": null,
@@ -64,11 +64,11 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.2.4",
-            "sha256": "sha256-JFxYOs+qHoNSL6sSL8idc3IDY+JTJaZ2FM1Ki8ZKXFY=",
+            "rev": "v1.2.7",
+            "sha256": "sha256-+pRG5nq0Be58at61qqu5QciHC2DMvw+wj7u8tZx8+eY=",
             "type": "github"
         },
-        "version": "v1.2.4"
+        "version": "v1.2.7"
     },
     "xray": {
         "cargoLocks": null,

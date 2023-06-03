@@ -3,21 +3,21 @@
 {
   clash-meta = {
     pname = "clash-meta";
-    version = "v1.14.3";
+    version = "v1.14.4";
     src = fetchFromGitHub ({
       owner = "MetaCubeX";
       repo = "Clash.Meta";
-      rev = "v1.14.3";
+      rev = "v1.14.4";
       fetchSubmodules = true;
-      sha256 = "sha256-FGmUzv9Ae2dn6vqlAXcpM5xs1K8P4tGn5tchl7N2rqg=";
+      sha256 = "sha256-FTHY89durGNeoRrXTA24ZVZ6QRc/LwZPW44PqUiq6AE=";
     });
   };
   clash-premium = {
     pname = "clash-premium";
-    version = "2023.04.16";
+    version = "2023.05.29";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz";
-      sha256 = "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.29.gz";
+      sha256 = "sha256-pY0s0xuzoxdzWxHoOgztqf/MezIhvVBGBVYtJovHENU=";
     };
   };
   mtg = {
@@ -33,13 +33,13 @@
   };
   sing-box = {
     pname = "sing-box";
-    version = "v1.2.4";
+    version = "v1.2.7";
     src = fetchFromGitHub ({
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.2.4";
+      rev = "v1.2.7";
       fetchSubmodules = true;
-      sha256 = "sha256-JFxYOs+qHoNSL6sSL8idc3IDY+JTJaZ2FM1Ki8ZKXFY=";
+      sha256 = "sha256-+pRG5nq0Be58at61qqu5QciHC2DMvw+wj7u8tZx8+eY=";
     });
   };
   xray = {
