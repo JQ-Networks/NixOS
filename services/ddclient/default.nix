@@ -10,13 +10,14 @@ let
     cache=${dataDir}/ddclient.cache
     foreground=YES
   '';
-  configHost = key: cfg: ''
+  configHost = key: cfg: 
+  ''
     ${lib.optionalString (cfg.use != "") "use=${cfg.use}"}
-    ${lib.optionalString (cfg.interface != "" && !cfg.ipv6) 
+    ${lib.optionalString (cfg.interface != "" && !cfg.ipv6 && cfg.use == "cmd" && cfg.customCmd == "") 
     "cmd=\'${pkgs.iproute2}/bin/ip -f inet addr sh dev ${cfg.interface} scope global | grep -Po \\'inet \\\\K[\\\\d.]+\\'\'"}
-    ${lib.optionalString (cfg.interface != "" && cfg.ipv6) 
+    ${lib.optionalString (cfg.interface != "" && cfg.ipv6 && cfg.use == "cmd" && cfg.customCmd == "") 
     "cmd=\'${pkgs.iproute2}/bin/ip -f inet6 addr sh dev ${cfg.interface} scope global | grep -Po \\'inet6 \\\\K[\\\\da-f:]+\\'\'"}
-    ${lib.optionalString (cfg.customCmd != "" && cfg.interface == "") "cmd=${cfg.cmd}"}
+    ${lib.optionalString (cfg.customCmd != "") "cmd=${cfg.cmd}"}
     login=${cfg.username}
     password=${cfg.password}
     protocol=${cfg.protocol}

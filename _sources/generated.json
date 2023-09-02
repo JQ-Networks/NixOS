@@ -12,11 +12,11 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "Clash.Meta",
-            "rev": "v1.15.0",
-            "sha256": "sha256-QXNMplVy4cDRbUUDwidto7jxgjStX5PmCLdAIW7Edn8=",
+            "rev": "v1.15.1",
+            "sha256": "sha256-gOUG+XtLfkgnbTj1yUun50pevOh+aPXfIlof5/U2ud8=",
             "type": "github"
         },
-        "version": "v1.15.0"
+        "version": "v1.15.1"
     },
     "clash-premium": {
         "cargoLocks": null,
@@ -26,11 +26,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-AZKbYp5/DXB8LnkX2Xvr8xyuRvRy+DjKDZ6GpR84//U=",
+            "sha256": "sha256-kjgPBT8IPjeUwWgVg74BOlexYCktHZ4QVuf6HC2Uh0c=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.06.30.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.08.17.gz"
         },
-        "version": "2023.06.30"
+        "version": "2023.08.17"
     },
     "mtg": {
         "cargoLocks": null,
@@ -64,11 +64,11 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.3.0",
-            "sha256": "sha256-zKCJ/tHBv8edgfLpy4pTtr/8a1pQkkoH/kBmH8HujGc=",
+            "rev": "v1.4.1",
+            "sha256": "sha256-AB+JNac9553Viw/XVqLFAQnEOwweCz3ltyUbB1gYMmM=",
             "type": "github"
         },
-        "version": "v1.3.0"
+        "version": "v1.4.1"
     },
     "xray": {
         "cargoLocks": null,
@@ -83,10 +83,10 @@
             "name": null,
             "owner": "XTLS",
             "repo": "Xray-core",
-            "rev": "v1.7.5",
-            "sha256": "sha256-WCku/7eczcsGiIuTy0sSQKUKXlH14TpdVg2/ZPdaiHQ=",
+            "rev": "v1.8.4",
+            "sha256": "sha256-Hu0BP4BzoELRjJ8WdF3JS/ffxd3bpH+kauWqaMh/o1I=",
             "type": "github"
         },
-        "version": "v1.7.5"
+        "version": "v1.8.4"
     }
 }
