@@ -11,8 +11,8 @@ with lib;
 with builtins;
 let
   cfg = config.jq-networks.supplemental.nftables;
-  tableType = (import ./types.nix {inherit lib;}).tableType;
-  renderConfig = (import ./render.nix {inherit lib;}).genConf;
+  tableType = (import ./types.nix { inherit lib; }).tableType;
+  renderConfig = (import ./render.nix { inherit lib; }).genConf;
   ruleSetFile = toFile "nftables.rule" (renderConfig cfg.config);
 in
 {
@@ -37,6 +37,13 @@ in
 
     environment.systemPackages = with pkgs; [
       nftables
+    ];
+
+    assertions = mkIf cfg.enable [
+      {
+        assertion = ((exec "${pkgs.nftables}/bin/nft -c -f ${ruleSetFile}").exitCode == 0);
+        message = "NFT rule check failed.";
+      }
     ];
   };
 }

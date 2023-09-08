@@ -50,6 +50,8 @@ in
       ];
     };
 
+    trustedInterfaces = mkComposite "Allow all inbound from these interfaces.";
+
   };
   config.systemd.services.reload-podman-firewall = mkIf (config.virtualisation.podman.enable && cfg.enable) {
     description = "nftables firewall";
@@ -62,99 +64,106 @@ in
       ExecStart = "${pkgs.podman}/bin/podman network reload --all";
     };
   };
-  config.jq-networks.supplemental.nftables = mkIf cfg.enable {
-    enable = true;
-    config = {
-      filter = {
-        family = "inet";
-        sets = {
-          allow_tcp = {
-            type = "inet_service";
-            flags = "interval";
-            elements = cfg.tcpOpenPorts;
-          };
-          allow_udp = {
-            type = "inet_service";
-            flags = "interval";
-            elements = cfg.udpOpenPorts;
-          };
-        };
-
-        chains = {
-          # replacement of iptables table Filter chain OUTPUT
-          output = {
-            type = "filter";
-            hook = "output";
-            priority = "100";
-            policy = "accept";
-            rules = [ ];
+  config.assertions = mkIf cfg.enable [
+    {
+      assertion = (config.services.ferm.enable == false);
+      message = "Ferm is not disable!";
+    }
+  ];
+  config.jq-networks.supplemental.nftables =
+    mkIf cfg.enable {
+      enable = true;
+      config = {
+        filter = {
+          family = "inet";
+          sets = {
+            allow_tcp = {
+              type = "inet_service";
+              flags = "interval";
+              elements = cfg.tcpOpenPorts;
+            };
+            allow_udp = {
+              type = "inet_service";
+              flags = "interval";
+              elements = cfg.udpOpenPorts;
+            };
           };
 
-          # replacement of iptables table Filter chain INPUT
-          input = {
-            type = "filter";
-            hook = "input";
-            priority = "filter";
-            policy = "drop";
-            rules = [
-              {
-                iifname = "lo";
-                action = "accept";
-              }
-              {
-                "ip protocol" = "icmp";
-                "icmp type" = "echo-request";
-                action = "accept";
-              }
-              # {
-              #   iifname = "t-*";
-              #   counter = "";
-              #   action = "accept";
-              # }
-              {
-                "tcp dport" = "@allow_tcp";
-                action = "accept";
-              }
-              {
-                "udp dport" = "@allow_udp";
-                action = "accept";
-              }
-              {
-                "ct state" = [ "related" "established" ];
-                counter = true;
-                action = "accept";
-              }
-            ];
-          };
+          chains = {
+            # replacement of iptables table Filter chain OUTPUT
+            output = {
+              type = "filter";
+              hook = "output";
+              priority = "100";
+              policy = "accept";
+              rules = [ ];
+            };
 
-          # replacement of iptables table Filter chain FORWARD
-          forward = {
-            type = "filter";
-            hook = "forward";
-            priority = "filter";
-            policy = "drop";
-            rules = [
-              {
-                oifname = cfg.wanInterface;
-                "tcp flags" = "syn";
-                "tcp option" = "maxseg size";
-                action = "set rt mtu";
-              }
-              # {
-              #   iifname = "t-*";
-              #   action = "accept";
-              #   comment = "Allow wireguard outbound";
-              # }
-              {
-                "ct state" = [ "related" "established" ];
-                counter = true;
-                action = "accept";
-                comment = "Allow established connections";
-              }
-            ];
+            # replacement of iptables table Filter chain INPUT
+            input = {
+              type = "filter";
+              hook = "input";
+              priority = "filter";
+              policy = "drop";
+              rules = [
+                {
+                  iifname = "lo";
+                  action = "accept";
+                }
+                {
+                  "ip protocol" = "icmp";
+                  "icmp type" = "echo-request";
+                  action = "accept";
+                }
+                {
+                  iifname = cfg.trustedInterfaces;
+                  counter = "";
+                  action = "accept";
+                }
+                {
+                  "tcp dport" = "@allow_tcp";
+                  action = "accept";
+                }
+                {
+                  "udp dport" = "@allow_udp";
+                  action = "accept";
+                }
+                {
+                  "ct state" = [ "related" "established" ];
+                  counter = true;
+                  action = "accept";
+                }
+              ];
+            };
+
+            # replacement of iptables table Filter chain FORWARD
+            forward = {
+              type = "filter";
+              hook = "forward";
+              priority = "filter";
+              policy = "drop";
+              rules = [
+                {
+                  oifname = cfg.wanInterface;
+                  "tcp flags" = "syn";
+                  "tcp option" = "maxseg size";
+                  action = "set rt mtu";
+                }
+                {
+                  iifname = cfg.trustedInterfaces;
+                  action = "accept";
+                  comment = "Allow wireguard outbound";
+                }
+                {
+                  "ct state" = [ "related" "established" ];
+                  counter = true;
+                  action = "accept";
+                  comment = "Allow established connections";
+                }
+              ];
+            };
           };
         };
       };
     };
-  };
 }
