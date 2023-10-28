@@ -122,7 +122,7 @@ in
     environment.etc = mapAttrs' (
       name: cfg: nameValuePair "ppp/peers/${name}" {
         text = concatStringsSep "\n" [
-          (optionalString cfg.pppoe "plugin rp-pppoe.so")
+          (optionalString cfg.pppoe "plugin pppoe.so")
           "${cfg.interface}"
           "user \"${cfg.username}\""
           "password \"${cfg.password}\""
