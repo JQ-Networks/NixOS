@@ -33,7 +33,7 @@
             )
             # (final: prev: (indexyz.overlay.${final.system} final prev))
             # https://github.com/DavHau/pypi-deps-db
-            indexyz.overlays
+            indexyz.overlays.default
             (final: prev: packages)
             poetry2nix.overlay
           ];
