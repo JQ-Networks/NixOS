@@ -2,7 +2,7 @@
 buildGoModule rec {
   inherit (source) src pname version;
 
-  vendorSha256 = "sha256-OCwJ0oBAHBoAyKTsacos4iZdOiX2iZ5XJBt6PopRxWo=";
+  vendorHash = "sha256-OCwJ0oBAHBoAyKTsacos4iZdOiX2iZ5XJBt6PopRxWo=";
   doCheck = false;
   meta = with lib; {
     description = "Highly-opionated (ex-bullshit-free) MTPROTO proxy for Telegram.";

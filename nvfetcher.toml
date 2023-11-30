@@ -19,6 +19,6 @@ fetch.github = "MetaCubeX/Clash.Meta"
 git.fetchSubmodules = true
 
 [clash-premium]
-src.webpage = "https://github.com/Dreamacro/clash/releases/tag/premium"
-src.regex = "Premium ([0-9\\.]*)"
-fetch.url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-$ver.gz"
+src.webpage = "https://github.com/zhongfly/Clash-premium-backup/tags/"
+src.regex = "\\d{4}-\\d{2}-\\d{2}-[a-z0-9]{8}"
+fetch.url = "https://github.com/zhongfly/Clash-premium-backup/releases/download/$ver/clash-linux-amd64-n$ver.gz"
