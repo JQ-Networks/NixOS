@@ -41,7 +41,7 @@ in
 
     assertions = mkIf cfg.enable [
       {
-        assertion = ((exec "${pkgs.nftables}/bin/nft -c -f ${ruleSetFile}").exitCode == 0);
+        assertion = ((exec ["${pkgs.nftables}/bin/nft" "-c" "-f" "${ruleSetFile}"]).exitCode == 0);
         message = "NFT rule check failed.";
       }
     ];
