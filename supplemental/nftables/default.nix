@@ -34,16 +34,11 @@ in
     networking.firewall.enable = false;
     networking.nftables.enable = true;
     networking.nftables.ruleset = renderConfig cfg.config;
+    networking.nftables.checkRuleset = true;
 
     environment.systemPackages = with pkgs; [
       nftables
     ];
 
-    assertions = mkIf cfg.enable [
-      {
-        assertion = ((exec ["${pkgs.nftables}/bin/nft" "-c" "-f" "${ruleSetFile}"]).exitCode == 0);
-        message = "NFT rule check failed.";
-      }
-    ];
   };
 }
