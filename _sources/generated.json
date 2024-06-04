@@ -12,11 +12,11 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "Clash.Meta",
-            "rev": "v1.16.0",
-            "sha256": "sha256-ORyjCYf2OPrSt/juiBk0Gf2Az4XoZipKBWWFXf8nIqE=",
+            "rev": "v1.18.5",
+            "sha256": "sha256-YNnZ/wlOzmTAD76py4CRlClPi2S1b4PaanCfT/Q426A=",
             "type": "github"
         },
-        "version": "v1.16.0"
+        "version": "v1.18.5"
     },
     "clash-premium": {
         "cargoLocks": null,
@@ -64,11 +64,11 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.7.0",
-            "sha256": "sha256-XD4xWOQumqbXMBbzHgCIgFIegUqJnFZsAvk1VZXX5rc=",
+            "rev": "v1.9.0",
+            "sha256": "sha256-syHynGP5gVHb66FZ9Prhlhw6ws91V9JDgoe/p07WvYk=",
             "type": "github"
         },
-        "version": "v1.7.0"
+        "version": "v1.9.0"
     },
     "xray": {
         "cargoLocks": null,
@@ -83,10 +83,10 @@
             "name": null,
             "owner": "XTLS",
             "repo": "Xray-core",
-            "rev": "v1.8.4",
-            "sha256": "sha256-Hu0BP4BzoELRjJ8WdF3JS/ffxd3bpH+kauWqaMh/o1I=",
+            "rev": "v1.8.13",
+            "sha256": "sha256-+npmj8Cz3/XTabAXL+J02EmyvPwtwz9TKazd9z9emwI=",
             "type": "github"
         },
-        "version": "v1.8.4"
+        "version": "v1.8.13"
     }
 }

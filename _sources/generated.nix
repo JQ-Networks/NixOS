@@ -3,13 +3,13 @@
 {
   clash-meta = {
     pname = "clash-meta";
-    version = "v1.16.0";
+    version = "v1.18.5";
     src = fetchFromGitHub ({
       owner = "MetaCubeX";
       repo = "Clash.Meta";
-      rev = "v1.16.0";
+      rev = "v1.18.5";
       fetchSubmodules = true;
-      sha256 = "sha256-ORyjCYf2OPrSt/juiBk0Gf2Az4XoZipKBWWFXf8nIqE=";
+      sha256 = "sha256-YNnZ/wlOzmTAD76py4CRlClPi2S1b4PaanCfT/Q426A=";
     });
   };
   clash-premium = {
@@ -33,24 +33,24 @@
   };
   sing-box = {
     pname = "sing-box";
-    version = "v1.7.0";
+    version = "v1.9.0";
     src = fetchFromGitHub ({
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.7.0";
+      rev = "v1.9.0";
       fetchSubmodules = true;
-      sha256 = "sha256-XD4xWOQumqbXMBbzHgCIgFIegUqJnFZsAvk1VZXX5rc=";
+      sha256 = "sha256-syHynGP5gVHb66FZ9Prhlhw6ws91V9JDgoe/p07WvYk=";
     });
   };
   xray = {
     pname = "xray";
-    version = "v1.8.4";
+    version = "v1.8.13";
     src = fetchFromGitHub ({
       owner = "XTLS";
       repo = "Xray-core";
-      rev = "v1.8.4";
+      rev = "v1.8.13";
       fetchSubmodules = true;
-      sha256 = "sha256-Hu0BP4BzoELRjJ8WdF3JS/ffxd3bpH+kauWqaMh/o1I=";
+      sha256 = "sha256-+npmj8Cz3/XTabAXL+J02EmyvPwtwz9TKazd9z9emwI=";
     });
   };
 }

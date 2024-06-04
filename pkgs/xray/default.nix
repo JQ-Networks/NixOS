@@ -1,7 +1,7 @@
 { fetchFromGitHub, buildGoModule, lib, source }:
 buildGoModule rec {
   inherit (source) src pname version;
-  vendorHash = "sha256-ihTOKtppOTYdulzwIwD8oWaS2OPs+QCdqPTvqucw7xY=";
+  vendorHash = "sha256-55mNCD3p6Xy6S1w8WzJwxKttjEkEjJZcGTLQdWl1bQQ=";
   doCheck = false;
 
   buildPhase = ''
