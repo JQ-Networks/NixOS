@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  compositeType = with types; nullOr (either
+    compositeType = with types; nullOr (either
     (oneOf [ str ints.unsigned bool ])
     (listOf (oneOf [ str ints.unsigned bool ])));
 
@@ -10,48 +10,20 @@ let
     default = null;
     type = compositeType;
   };
-
-  portForwardType = types.submodule {
-    options = {
-      srcPort = mkComposite "Inbound dst port, use 111-222 for ranges";
-      dstPort = mkComposite "Outbound dst port, use 111-222 for ranges";
-      interface = mkComposite "Inbound interface";
-      dstIp = mkComposite "Forward to which host";
-      protocol = mkComposite "What protocol to forward";
-    };
-  };
-
   cfg = config.jq-networks.services.firewall2;
 in
 {
+  # simplified to just a set of rules. No more templates.
   options.jq-networks.services.firewall2 = {
-    enable = mkEnableOption "Enable nftables.";
-
+    enable = mkEnableOption "Enable nftables default rules.";
+    tcpOpenPorts = mkComposite "TCP Ports to open on INPUT";
+    udpOpenPorts = mkComposite "UDP Ports to open on INPUT";
+    trustedInterfaces = mkComposite "Allow all inbound from these interfaces.";
     wanInterface = mkOption {
       type = types.str;
       default = "";
       description = "Add nat to outbound traffic.";
     };
-
-    tcpOpenPorts = mkComposite "TCP Ports to open on INPUT";
-    udpOpenPorts = mkComposite "UDP Ports to open on INPUT";
-
-    portForwards = mkOption {
-      type = types.listOf portForwardType;
-      default = [ ];
-      example = [
-        {
-          srcPort = "45550-45570";
-          dstPort = "45550-45570";
-          interface = "wan";
-          dstIp = "192.168.1.101";
-          protocol = [ "tcp" "udp" ];
-        }
-      ];
-    };
-
-    trustedInterfaces = mkComposite "Allow all inbound from these interfaces.";
-
   };
   config.systemd.services.reload-podman-firewall = mkIf (config.virtualisation.podman.enable && cfg.enable) {
     description = "nftables firewall";
@@ -88,7 +60,6 @@ in
               elements = cfg.udpOpenPorts;
             };
           };
-
           chains = {
             # replacement of iptables table Filter chain OUTPUT
             output = {
@@ -116,8 +87,8 @@ in
                   action = "accept";
                 }
                 {
-                  iifname = cfg.trustedInterfaces;
-                  counter = "";
+                  "ct state" = [ "related" "established" ];
+                  counter = true;
                   action = "accept";
                 }
                 {
@@ -126,11 +97,6 @@ in
                 }
                 {
                   "udp dport" = "@allow_udp";
-                  action = "accept";
-                }
-                {
-                  "ct state" = [ "related" "established" ];
-                  counter = true;
                   action = "accept";
                 }
               ];

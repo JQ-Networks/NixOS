@@ -18,7 +18,6 @@ in {
     jq-networks.services.firewall2.tcpOpenPorts = [cfgRsync.port];
 
     jq-networks.supplemental.firewall = {
-      enable = true;
       filterInputRules = [{
         proto = "tcp";
         dport = with cfgTransmission; "${toString cfgRsync.port}";

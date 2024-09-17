@@ -88,13 +88,7 @@ in {
     # supplemental.networking.wireguard.tunnels = lib.mapAttrs renderTunnel cfg.generatedTunnels;
     # firewall2
     jq-networks.services.firewall2.udpOpenPorts = lib.mapAttrsToList (name: tunnel: tunnel.listenPort) cfg.generatedTunnels;
-    jq-networks.supplemental.nftables.config.filter.chains.forward.rules = [
-      {
-        iifname = "t-*";
-        action = "accept";
-        comment = "Allow wireguard forward";
-      }
-    ];
+    jq-networks.services.firewall2.trustedInterfaces = [ "t-*" ];
     jq-networks.supplemental.firewall.filterInputRules =
       lib.mapAttrsToList renderFirewall cfg.generatedTunnels;
 

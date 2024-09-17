@@ -60,7 +60,6 @@ in {
 
     jq-networks.supplemental = {
       firewall = {
-        enable = true;
         filterInputRules = [
           {
             proto = "tcp";
