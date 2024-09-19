@@ -87,6 +87,10 @@ in
                   action = "accept";
                 }
                 {
+                  "ip6 nexthdr" = "icmpv6";
+                  action = "accept";
+                }
+                {
                   "ct state" = [ "related" "established" ];
                   counter = true;
                   action = "accept";
