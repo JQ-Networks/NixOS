@@ -197,7 +197,7 @@ in {
       after = [ "network-online.target" ];
       description = "kubelet: The Kubernetes Node Agent";
 
-      path = with pkgs; [ gitMinimal openssh docker utillinux iproute ethtool thin-provisioning-tools iptables socat ];
+      path = with pkgs; [ gitMinimal openssh docker utillinux iproute2 ethtool thin-provisioning-tools iptables socat ];
 
       serviceConfig = {
         Environment = [

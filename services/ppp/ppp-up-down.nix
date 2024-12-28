@@ -22,7 +22,7 @@
 
         networkctl reconfigure $IFACE
         sleep 5
-        ${pkgs.iproute}/bin/ip route add default dev $IFACE
+        ${pkgs.iproute2}/bin/ip route add default dev $IFACE
 
       '';
     };
