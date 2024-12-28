@@ -56,20 +56,16 @@ let
         # address = [ "fe80:ca11:ab1e::${peerId}.${myId}.${myId}.${peerId}/64" ];
         addresses = [
           {
-            addressConfig = {
-              Address = "169.254.${myId}.${peerId}/32";
-              Peer = "169.254.${peerId}.${myId}/32";
-              Scope = "link";
-              DuplicateAddressDetection = "none";
-            };
+            Address = "169.254.${myId}.${peerId}/32";
+            Peer = "169.254.${peerId}.${myId}/32";
+            Scope = "link";
+            DuplicateAddressDetection = "none";
           }
           {
-            addressConfig = {
-              Address =
-                "bbbb:ca11:ab1e::${peerId}.${myId}.${myId}.${peerId}/128";
-              Peer = "bbbb:ca11:ab1e::${myId}.${peerId}.${peerId}.${myId}/128";
-              Scope = "link";
-            };
+            Address =
+              "bbbb:ca11:ab1e::${peerId}.${myId}.${myId}.${peerId}/128";
+            Peer = "bbbb:ca11:ab1e::${myId}.${peerId}.${peerId}.${myId}/128";
+            Scope = "link";
           }
         ];
         networkConfig = { LinkLocalAddressing = "no"; };
