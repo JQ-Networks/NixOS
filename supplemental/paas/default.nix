@@ -1,5 +1,5 @@
 # This module means Python as a (systemd) service
-{ config, lib, pkgs, pkgs-unstable, name, nodes, ... }:
+{ config, lib, pkgs, name, nodes, ... }:
 with builtins;
 with lib;
 let
@@ -19,7 +19,7 @@ let
         description = ''
           Python Package
           https://github.com/NixOS/nixpkgs/blob/nixos-21.05/pkgs/development/interpreters/python/default.nix'';
-        default = pkgs-unstable.python312;
+        default = pkgs.unstable.python312;
       };
       overridePackages = mkOption {
         type = types.attrsOf (types.listOf types.str);
