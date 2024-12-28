@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, indexyz, mach-nix, flake-utils, poetry2nix, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, indexyz, flake-utils, poetry2nix, ... }:
     flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ]
       (system:
         let
