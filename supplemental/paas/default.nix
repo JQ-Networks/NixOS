@@ -95,7 +95,7 @@ in
               ${optionalString value.symlinkCodeBase
               (with value.workingDir;
               ''find ${path} -type l -delete
-                ln -s ${value.codePath}/* ${path}'')}
+                cp -rsvf ${value.codePath} ${path}'')}
 
               # run scripts
               ${value.shellScript}
