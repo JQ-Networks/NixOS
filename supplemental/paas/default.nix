@@ -83,8 +83,8 @@ in
             after = [ "network.target" ];
             wantedBy = [ "default.target" ];
             path = with pkgs; [ value.pythonVersion poetry ];
-            user = value.user;
-            group = value.group;
+            user = if value.workingDir != null then value.workingDir.user else "root";
+            group = if value.workingDir != null then value.workingDir.group else "root";
             script = ''
               # install scripts
               ${optionalString (value.workingDir != null)
