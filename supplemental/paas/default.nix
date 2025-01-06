@@ -4,6 +4,29 @@ with builtins;
 with lib;
 let
   cfg = config.jq-networks.supplemental.paas;
+  pathType = types.submodule {
+    options = {
+      path = mkOption {
+        type = types.str;
+        description = "permanent storage directory, must be absolute";
+      };
+      mode = mkOption {
+        type = types.str;
+        description = "folder mode";
+        default = "0755";
+      };
+      user = mkOption {
+        type = types.str;
+        description = "owner user";
+        default = "root";
+      };
+      group = mkOption {
+        type = types.str;
+        description = "owner group";
+        default = "root";
+      };
+    };
+  };
   paasType = types.submodule {
     options = {
       codePath = mkOption {
@@ -21,28 +44,24 @@ let
           https://github.com/NixOS/nixpkgs/blob/nixos-21.05/pkgs/development/interpreters/python/default.nix'';
         default = pkgs.unstable.python312;
       };
-      overridePackages = mkOption {
-        type = types.attrsOf (types.listOf types.str);
-        description = "add missing packages to dependencies";
-        example = {
-          "magic-filter" = [ "poetry" ];
-          "bs4" = [ "setuptools" ];
-          "aiogram" = [ "setuptools" ];
-        };
-        default = {};
+      workingDir = mkOption {
+        type = types.nullOr pathType;
+        description = "permanent storage path";
+        default = null;
       };
+      symlinkCodeBase = mkEnableOption "Make a full symbolic copy of code base to working dir.";
       extraSystemdServiceConfigs = mkOption {
         type = types.attrs;
         description = ''
           Systemd options.
-        '';
-        default = { };
+        ''; 
+        default = {};
       };
       extraSystemdTimerConfigs = mkOption {
         type = types.nullOr types.attrs;
         description = ''
           Systemd timer options.
-        '';
+        ''; 
         default = null;
       };
     };
@@ -52,82 +71,61 @@ in
   options.jq-networks.supplemental.paas = mkOption {
     type = types.attrsOf paasType;
     description = "attrs of paas options";
-    default = { };
+    default = {};
   };
   config =
-    let
-      pythonVenvs =
-        let
-          genPythonVenv = key: value: (
-            nameValuePair
-              "paas-${key}"
-              (
-                (pkgs.poetry2nix.mkPoetryApplication {
-                  projectDir = value.codePath;
-                  python = value.pythonVersion;
-                  overrides = pkgs.poetry2nix.defaultPoetryOverrides.extend
-                    (self: super:
-                      let
-                        overridePackages = {
-                          "magic-filter" = [ "poetry" ];
-                          "bs4" = [ "setuptools" ];
-                          "aiogram" = [ "setuptools" ];
-                        } // value.overridePackages;
-                        genList = map (x: super.${x});
-                        genMissing = mapAttrs (
-                          key: value: (
-                            super.${key}.overridePythonAttrs (
-                              old: {
-                                buildInputs = (old.buildInputs or [ ]) ++ (genList value);
-                              }
-                            )
-                          )
-                        );
-                      in
-                      genMissing overridePackages
-                    );
-                }).dependencyEnv
-              )
-          );
-        in
-        mapAttrs' genPythonVenv cfg;
-    in
     {
-      systemd.services =
-        let
-          genSystemdService = key: value: (
-            nameValuePair
-              "paas-${key}"
-              (mkMerge [{
-                description = "Python service for ${key}";
-                after = [ "network.target" ];
-                wantedBy = [ "default.target" ];
-                path = [ (getAttr "paas-${key}" pythonVenvs) ];
-                script = ''
-                  ${value.shellScript}
-                '';
-              }
-                value.extraSystemdServiceConfigs])
-          );
-        in
+      systemd.services = let
+        genSystemdService = key: value: (
+          nameValuePair
+            "paas-${key}" (mkMerge [{
+            description = "Python service for ${key}";
+            after = [ "network.target" ];
+            wantedBy = [ "default.target" ];
+            path = with pkgs; [ value.pythonVersion poetry ];
+            user = value.user;
+            group = value.group;
+            script = ''
+              # install scripts
+              ${optionalString (value.workingDir != null)
+              (with value.workingDir;
+              ''mkdir -p -m${mode} ${path}
+                chown -R ${user}:${group} ${path}
+                cd ${path}'')}
+              ${optionalString (value.workingDir == null)
+              ''cd ${value.codePath}''}
+              ${optionalString value.symlinkCodeBase
+              (with value.workingDir;
+              ''find ${path} -type l -delete
+                ln -s ${value.codePath}/* ${path}'')}
+
+              # run scripts
+              ${value.shellScript}
+            '';
+            serviceConfig = {
+              Environment = "PYTHONPATH=${value.codePath}";
+            };
+          }
+          value.extraSystemdServiceConfigs
+          ])
+        );
+      in
         mapAttrs' genSystemdService cfg;
 
-      systemd.timers =
-        let
-          genSystemdTimer = key: value: (
-            nameValuePair
-              "paas-${key}"
-              (mkMerge [{
-                description = "Timer service for ${key}";
-                wantedBy = [ "timers.target" ];
-                timerConfig = {
-                  Unit = "paas-${key}.service";
-                };
-              }
-                value.extraSystemdTimerConfigs])
-          );
-        in
+      systemd.timers = let
+        genSystemdTimer = key: value: (
+          nameValuePair
+            "paas-${key}" (mkMerge [{
+            description = "Timer service for ${key}";
+            wantedBy = [ "timers.target" ];
+            timerConfig = {
+              Unit = "paas-${key}.service";
+            };
+          }
+          value.extraSystemdTimerConfigs
+          ])
+        );
+      in
         mapAttrs' genSystemdTimer (filterAttrs (key: value: value.extraSystemdTimerConfigs != null) cfg);
-      environment.systemPackages = attrValues pythonVenvs;
     };
 }
