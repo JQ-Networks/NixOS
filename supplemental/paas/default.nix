@@ -83,8 +83,6 @@ in
             after = [ "network.target" ];
             wantedBy = [ "default.target" ];
             path = with pkgs; [ value.pythonVersion poetry ];
-            user = if value.workingDir != null then value.workingDir.user else "root";
-            group = if value.workingDir != null then value.workingDir.group else "root";
             script = ''
               # install scripts
               ${optionalString (value.workingDir != null)
@@ -104,6 +102,8 @@ in
             '';
             serviceConfig = {
               Environment = "PYTHONPATH=${value.codePath}";
+              User = if value.workingDir != null then value.workingDir.user else "root";
+              Group = if value.workingDir != null then value.workingDir.group else "root";
             };
           }
           value.extraSystemdServiceConfigs
