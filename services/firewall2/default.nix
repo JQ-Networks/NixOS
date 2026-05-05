@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-    compositeType = with types; nullOr (either
+  compositeType = with types; nullOr (either
     (oneOf [ str ints.unsigned bool ])
     (listOf (oneOf [ str ints.unsigned bool ])));
 
@@ -30,6 +30,7 @@ in
     after = [ "nftables.service" ];
     bindsTo = [ "nftables.service" ]; # Only starts if nftables exits with success
     wantedBy = [ "nftables.service" ]; # Creates a Wants dependency in service1
+    partOf = [ "nftables.service" ]; # Propagates restart from nftables
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
