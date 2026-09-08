@@ -12,5 +12,6 @@
     ./nginx
     ./ppp
     ./transmission
+    ./vscode-server
   ];
 }
