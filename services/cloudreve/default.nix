@@ -20,7 +20,7 @@ let
     SessionSecret = ${cfg.sessionSecret}
     HashIDSalt = ${cfg.hashIdSalt}
     [Database]
-    DBFile = ${cfg.dataDir}/cloudreve.db
+    DBFile = ${cfg.dataDir}/${cfg.dbFile}
     ''}
     ${optionalString (cfg.mode == "slave") ''
     [Slave]
@@ -53,6 +53,14 @@ in
         default = "/var/lib/cloudreve";
         description = ''
           Directory to store Cloudreve database and other state/data files.
+        '';
+      };
+
+      dbFile = mkOption {
+        type = types.str;
+        default = "cloudreve.db";
+        description = ''
+          SQLite database file name, relative to dataDir.
         '';
       };
 
