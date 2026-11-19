@@ -11,6 +11,29 @@ let
     type = compositeType;
   };
   cfg = config.jq-networks.services.firewall2;
+  ts = cfg.tailscale;
+  isV6 = p: lib.hasInfix ":" p;
+  tsV4 = filter (p: !isV6 p) ts.prefixes;
+  tsV6 = filter isV6 ts.prefixes;
+  # tailscaled's own anti-spoof rule, but only for the tailnet's real prefixes.
+  # tailscaled hardcodes 100.64.0.0/10, which also covers our own overlay
+  # (100.64.101.x on lo, 100.64.102.x on tinc) and silently drops it.
+  tsAntiSpoof = optionals ts.enable [
+    {
+      iifname = "!= ${ts.interface}";
+      "ip saddr" = tsV4;
+      counter = true;
+      action = "drop";
+      comment = "tailnet source on non-tailscale interface";
+    }
+    {
+      iifname = "!= ${ts.interface}";
+      "ip6 saddr" = tsV6;
+      counter = true;
+      action = "drop";
+      comment = "tailnet source on non-tailscale interface";
+    }
+  ];
 in
 {
   # simplified to just a set of rules. No more templates.
@@ -24,7 +47,31 @@ in
       default = "";
       description = "Add nat to outbound traffic.";
     };
+    tailscale = {
+      enable = mkEnableOption ''
+        owning tailscale's netfilter rules here. tailscaled is switched to
+        --netfilter-mode=off and its rules are reproduced in this table, with the
+        anti-spoof drop narrowed to `prefixes` instead of all of 100.64.0.0/10
+      '';
+      interface = mkOption {
+        type = types.str;
+        default = config.services.tailscale.interfaceName;
+        description = "Tailscale interface.";
+      };
+      port = mkOption {
+        type = types.port;
+        default = config.services.tailscale.port;
+        description = "tailscaled's WireGuard UDP port, opened for direct peer connections.";
+      };
+      prefixes = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "100.68.0.0/16" "fd7a:115c:a1e0:2333::/64" ];
+        description = "Tailnet address ranges (the control server's IP prefixes). Packets from these are only accepted on `interface`.";
+      };
+    };
   };
+  config.services.tailscale.extraSetFlags = mkIf (cfg.enable && ts.enable) [ "--netfilter-mode=off" ];
   config.systemd.services.reload-podman-firewall = mkIf (config.virtualisation.podman.enable && cfg.enable) {
     description = "nftables firewall";
     after = [ "nftables.service" ];
@@ -38,6 +85,10 @@ in
     };
   };
   config.assertions = mkIf cfg.enable [
+    {
+      assertion = !ts.enable || ts.prefixes != [ ];
+      message = "firewall2.tailscale.prefixes must list the tailnet's prefixes.";
+    }
     {
       assertion = (config.services.ferm.enable == false);
       message = "Ferm is not disable!";
@@ -82,6 +133,12 @@ in
                   iifname = "lo";
                   action = "accept";
                 }
+              ] ++ tsAntiSpoof ++ [
+                {
+                  "udp dport" = if ts.enable then ts.port else null;
+                  action = "accept";
+                  comment = "tailscale direct connections";
+                }
                 {
                   "ip protocol" = "icmp";
                   "icmp type" = "echo-request";
@@ -120,6 +177,7 @@ in
                   "tcp option" = "maxseg size";
                   action = "set rt mtu";
                 }
+              ] ++ tsAntiSpoof ++ [
                 {
                   iifname = cfg.trustedInterfaces;
                   action = "accept";
